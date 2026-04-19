@@ -77,7 +77,36 @@
       <a href="index.html">Home</a><a href="services.html" class="active">Services</a>
       <a href="lawyers.html">Our Advocates</a><a href="qa.html">Legal Q&A</a>
       <a href="blog.html">Blog</a><a href="about.html">About</a>
-      <a href="consult.html" class="btn btn-outline btn-nav">Free Legal Advice</a>
+      
+      <!-- Auth Buttons (shown when logged out) -->
+      <div id="auth-buttons" style="display: flex; gap: 1rem; align-items: center;">
+        <a href="signup.html" class="btn btn-outline btn-nav">Sign Up</a>
+        <a href="login.html" class="btn btn-gold btn-nav">Login</a>
+      </div>
+
+      <!-- User Profile (shown when logged in) -->
+      <div id="user-profile" style="display: none; position: relative;">
+        <button class="profile-btn" id="profile-toggle">
+          <div class="profile-avatar" id="profile-avatar"></div>
+          <span id="profile-name"></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="profile-dropdown" id="profile-dropdown" style="display: none;">
+          <div class="dropdown-header">
+            <div class="profile-avatar-lg" id="profile-avatar-lg"></div>
+            <div>
+              <p id="dropdown-name"></p>
+              <p id="dropdown-email" style="font-size: 0.85rem; color: var(--muted);"></p>
+            </div>
+          </div>
+          <a href="login.html" class="dropdown-item">📊 Dashboard</a>
+          <a href="checkout.html" class="dropdown-item">🛒 View Cart</a>
+          <hr style="margin: 0.5rem 0; border: none; border-top: 1px solid var(--border);">
+          <button onclick="logoutUser()" class="dropdown-item" style="width: 100%; text-align: left; background: none; border: none; color: var(--muted); cursor: pointer;">🚪 Logout</button>
+        </div>
+      </div>
     </div>
     <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </div>

@@ -2,6 +2,20 @@
    MAIN.JS — Global Init: Navbar, Scroll, Accordion, Cursor
    ============================================ */
 
+// Logout Function
+function logoutUser() {
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('userFullName');
+  localStorage.removeItem('sessionToken');
+  localStorage.removeItem('userCart');
+  localStorage.removeItem('userBookings');
+  localStorage.removeItem('userFavorites');
+  localStorage.removeItem('userSettings');
+  
+  // Redirect to home
+  window.location.href = 'index.html';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ─── Scroll Progress Bar ─────────────────────────
@@ -59,6 +73,53 @@ document.addEventListener('DOMContentLoaded', () => {
       link.classList.add('active');
     }
   });
+
+  // ─── User Profile Display ──────────────────────
+  const userEmail = localStorage.getItem('userEmail');
+  const userFullName = localStorage.getItem('userFullName') || 'User';
+  const authButtons = document.getElementById('auth-buttons');
+  const userProfile = document.getElementById('user-profile');
+  
+  if (userEmail && authButtons && userProfile) {
+    // User is logged in
+    authButtons.style.display = 'none';
+    userProfile.style.display = 'flex';
+    
+    // Generate initials for avatar
+    const initials = userFullName
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+    
+    // Update profile button
+    document.getElementById('profile-name').textContent = userFullName.split(' ')[0];
+    document.getElementById('profile-avatar').textContent = initials;
+    
+    // Update dropdown
+    document.getElementById('profile-avatar-lg').textContent = initials;
+    document.getElementById('dropdown-name').textContent = userFullName;
+    document.getElementById('dropdown-email').textContent = userEmail;
+    
+    // Profile dropdown toggle
+    const profileToggle = document.getElementById('profile-toggle');
+    const profileDropdown = document.getElementById('profile-dropdown');
+    
+    if (profileToggle && profileDropdown) {
+      profileToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'block' : 'none';
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!profileToggle.contains(e.target) && !profileDropdown.contains(e.target)) {
+          profileDropdown.style.display = 'none';
+        }
+      });
+    }
+  }
 
   // ─── Accordion FAQ ──────────────────────────────
   document.querySelectorAll('.accordion-header').forEach(header => {

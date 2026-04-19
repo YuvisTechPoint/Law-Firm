@@ -2,7 +2,8 @@
    PAYMENT.JS — Razorpay Integration
    ============================================ */
 
-const RAZORPAY_KEY = 'rzp_test_YourTestKeyHere'; // Using your test key for integration
+const RAZORPAY_KEY = 'rzp_test_SfTBR0XRUt3eHw'; // Razorpay Test Key ID
+const RAZORPAY_SECRET = '4IMukANpw5psUOYADQOBCU4r'; // Razorpay Test Key Secret
 
 const plans = {
   free:      { name: 'Free Initial Consultation', amount: 0,    description: '15-min introductory call' },

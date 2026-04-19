@@ -3,60 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login & Cart — LexCounsel India</title>
+  <title>User Profile & Cart — LexCounsel India</title>
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
   <style>
-    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg-primary); }
-    .auth-wrapper { width: 100%; max-width: 450px; padding: 2rem; }
-    .auth-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; }
+    /* ============= AUTH SECTION ============= */
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg-primary); padding: 1rem; }
+    .auth-wrapper { width: 100%; max-width: 450px; }
+    .auth-card { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: var(--glass-border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-lg); }
     .auth-header { text-align: center; margin-bottom: 2rem; }
-    .auth-header .logo-text { font-size: 1.8rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
-    .auth-header p { color: var(--muted); font-size: 0.9rem; }
+    .auth-header .logo-text { font-size: 2rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; font-family: var(--font-display); }
+    .auth-header p { color: var(--muted); font-size: 0.95rem; }
     .form-group { margin-bottom: 1.2rem; }
-    .form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--text); }
-    .form-control { width: 100%; padding: 0.75rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text); font-size: 0.95rem; }
-    .form-control:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,168,76,0.1); }
-    .btn-submit { width: 100%; padding: 0.85rem; background: var(--gold); color: var(--bg-primary); border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem; }
-    .btn-submit:hover { background: #d4a943; transform: translateY(-2px); }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-control { width: 100%; padding: 0.85rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--ivory); font-size: 0.95rem; transition: all var(--transition-base); }
+    .form-control:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.15); background: var(--bg-primary); }
+    .btn-submit { width: 100%; padding: 1rem; background: var(--gold); color: var(--bg-primary); border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: all var(--transition-base); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: var(--shadow-gold-lg); }
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
     .status-message { padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem; font-size: 0.9rem; text-align: center; display: none; }
     .status-message.success { background: rgba(46,204,113,0.1); color: var(--success); border: 1px solid var(--success); }
     .status-message.error { background: rgba(231,76,60,0.1); color: #e74c3c; border: 1px solid #e74c3c; }
     .auth-footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 1.5rem; }
-    .auth-footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
-    .auth-footer a:hover { text-decoration: underline; }
+    .auth-footer a { color: var(--gold); text-decoration: none; font-weight: 600; padding: 0.7rem 2rem; border: 1px solid var(--gold); border-radius: var(--radius-md); display: inline-block; transition: all var(--transition-base); }
+    .auth-footer a:hover { background: var(--gold); color: var(--bg-primary); }
     .divider { text-align: center; margin: 1.5rem 0; color: var(--muted); font-size: 0.8rem; }
-    .divider::before { content: ""; display: inline-block; width: 45%; height: 1px; background: var(--border); vertical-align: middle; margin-right: 0.5rem; }
-    .divider::after { content: ""; display: inline-block; width: 45%; height: 1px; background: var(--border); vertical-align: middle; margin-left: 0.5rem; }
+    .divider::before, .divider::after { content: ""; display: inline-block; width: 40%; height: 1px; background: var(--border); vertical-align: middle; }
+    .divider::before { margin-right: 0.8rem; }
+    .divider::after { margin-left: 0.8rem; }
+
+    /* ============= DASHBOARD SECTION ============= */
+    .dashboard-container { display: none; padding: 2rem 1rem; min-height: 100vh; }
+    .dashboard-wrapper { max-width: 1400px; margin: 0 auto; }
     
-    .dashboard-container { display: none; }
-    .dashboard-header { background: var(--bg-secondary); padding: 2rem; border-radius: var(--radius-lg); margin-bottom: 2rem; }
-    .dashboard-header h1 { margin: 0 0 0.5rem 0; }
-    .dashboard-header p { color: var(--muted); margin: 0; }
-    .cart-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border); }
-    .cart-item:last-child { border-bottom: none; }
-    .cart-total { margin-top: 1rem; text-align: right; font-weight: 700; font-size: 1.2rem; color: var(--gold); }
-    .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
-    .btn-action { flex: 1; padding: 0.85rem; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
-    .btn-checkout { background: var(--gold); color: var(--bg-primary); }
-    .btn-checkout:hover { background: #d4a943; }
-    .btn-logout { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
-    .btn-logout:hover { background: rgba(201,168,76,0.1); }
-    @media (max-width: 480px) { .auth-card { padding: 1.5rem; } .auth-header .logo-text { font-size: 1.5rem; } .action-buttons { flex-direction: column; } }
+    /* Dashboard Header */
+    .dashboard-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; padding: 1.5rem; background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: var(--glass-border); border-radius: var(--radius-lg); }
+    .logo-section { display: flex; align-items: center; gap: 1rem; }
+    .logo-section svg { width: 40px; height: 40px; color: var(--gold); }
+    .logo-section a { color: var(--gold); font-size: 1.3rem; font-weight: 700; text-decoration: none; font-family: var(--font-display); }
+    .user-info { display: flex; align-items: center; gap: 2rem; }
+    .user-email { color: var(--gold); font-weight: 600; }
+    .btn-logout-nav { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 0.6rem 1.2rem; border-radius: var(--radius-md); cursor: pointer; font-weight: 600; transition: all var(--transition-base); }
+    .btn-logout-nav:hover { background: var(--gold); color: var(--bg-primary); }
+
+    /* Main Layout */
+    .dashboard-layout { display: grid; grid-template-columns: 350px 1fr; gap: 2rem; }
+    
+    /* Sidebar */
+    .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+    .sidebar-section { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; }
+    
+    .profile-card { text-align: center; }
+    .profile-avatar { width: 100px; height: 100px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: var(--bg-primary); margin: 0 auto 1rem; }
+    .profile-name { font-size: 1.3rem; font-weight: 700; color: var(--ivory); margin-bottom: 0.5rem; }
+    .profile-email { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    .stat-item { background: var(--bg-card); padding: 1rem; border-radius: var(--radius-md); text-align: center; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem; }
+    
+    .nav-tabs { display: flex; flex-direction: column; gap: 0.5rem; }
+    .nav-tab { padding: 1rem; background: transparent; border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--muted); cursor: pointer; text-align: left; font-weight: 600; transition: all var(--transition-base); }
+    .nav-tab:hover { border-color: var(--gold); color: var(--gold); }
+    .nav-tab.active { background: var(--gold); color: var(--bg-primary); border-color: var(--gold); }
+
+    /* Main Content */
+    .dashboard-content { display: flex; flex-direction: column; gap: 2rem; }
+    
+    .content-section { display: none; }
+    .content-section.active { display: block; animation: fadeInUp 0.5s ease; }
+
+    /* Services Grid with Add to Cart */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .service-card { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; transition: all var(--transition-spring); position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(212,175,55,0.1), transparent); opacity: 0; transition: opacity var(--transition-base); }
+    .service-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow-gold-lg); }
+    .service-card:hover::before { opacity: 1; }
+    
+    .service-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .service-name { font-size: 1.1rem; font-weight: 700; color: var(--ivory); }
+    .service-badge { background: var(--gold); color: var(--bg-primary); font-size: 0.75rem; padding: 0.4rem 0.8rem; border-radius: var(--radius-full); font-weight: 600; }
+    .service-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.5; }
+    .service-details { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.85rem; }
+    .service-detail-item { display: flex; gap: 0.5rem; color: var(--muted); }
+    .service-price { font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; }
+    .btn-add-to-cart { width: 100%; padding: 0.85rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--bg-primary); border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: all var(--transition-base); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
+    .btn-add-to-cart:hover { transform: scale(1.05); box-shadow: var(--shadow-gold-lg); }
+
+    /* Cart Section */
+    .cart-card { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: var(--glass-border); border-radius: var(--radius-lg); padding: 2rem; }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .cart-header h2 { margin: 0; }
+    .cart-count { background: var(--gold); color: var(--bg-primary); padding: 0.4rem 0.8rem; border-radius: var(--radius-full); font-weight: 700; font-size: 0.9rem; }
+    .cart-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); transition: all var(--transition-base); }
+    .cart-item:hover { border-color: var(--gold); box-shadow: var(--shadow-md); }
+    .cart-item-info h4 { margin: 0 0 0.5rem 0; color: var(--ivory); }
+    .cart-item-info p { margin: 0; color: var(--muted); font-size: 0.85rem; }
+    .cart-item-price { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+    .cart-item-actions { display: flex; gap: 0.5rem; }
+    .btn-remove { background: #e74c3c; color: white; border: none; padding: 0.6rem 1rem; border-radius: var(--radius-md); cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: all var(--transition-base); }
+    .btn-remove:hover { background: #c0392b; }
+    .cart-summary { background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); margin-bottom: 2rem; }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem; }
+    .summary-total { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 700; color: var(--gold); border-top: 1px solid var(--border); padding-top: 1rem; }
+    .cart-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-checkout { background: var(--gold); color: var(--bg-primary); padding: 1rem; border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: all var(--transition-base); text-transform: uppercase; letter-spacing: 0.05em; }
+    .btn-checkout:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: var(--shadow-gold-lg); }
+    .btn-continue-shopping { background: transparent; color: var(--gold); padding: 1rem; border: 1px solid var(--gold); border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: all var(--transition-base); text-transform: uppercase; letter-spacing: 0.05em; }
+    .btn-continue-shopping:hover { background: var(--gold); color: var(--bg-primary); }
+
+    /* Bookings History */
+    .booking-item { background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); margin-bottom: 1rem; }
+    .booking-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
+    .booking-title { font-weight: 700; color: var(--ivory); }
+    .booking-status { padding: 0.4rem 0.8rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; }
+    .status-completed { background: rgba(46,204,113,0.2); color: var(--success); }
+    .status-pending { background: rgba(240,183,0,0.2); color: #f0b700; }
+    .booking-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; font-size: 0.9rem; }
+    .detail-item h5 { margin: 0 0 0.3rem 0; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .detail-item p { margin: 0; color: var(--ivory); }
+
+    /* Settings */
+    .settings-form { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-section { background: var(--bg-card); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+    .form-section h3 { margin-top: 0; }
+
+    /* Empty States */
+    .empty-state { text-align: center; padding: 3rem 2rem; }
+    .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state h3 { color: var(--muted); margin-bottom: 1rem; }
+    .empty-state p { color: var(--muted); }
+
+    @media (max-width: 1024px) {
+      .dashboard-layout { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+      .cart-actions { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .auth-card { padding: 1.5rem; }
+      .dashboard-topbar { flex-direction: column; gap: 1rem; }
+      .dashboard-topbar { justify-content: flex-start; }
+      .user-info { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .services-grid { grid-template-columns: 1fr; }
+      .cart-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
   </style>
 </head>
 <body>
 
-<!-- Login Section -->
+<!-- ===== LOGIN SECTION ===== -->
 <div class="auth-wrapper" id="login-section">
   <div class="auth-card">
     <div class="auth-header">
-      <div class="logo-text">LexCounsel India</div>
-      <p>Welcome Back</p>
+      <div class="logo-text">LexCounsel</div>
+      <p>Welcome Back to Your Legal Dashboard</p>
     </div>
 
     <div id="status-message" class="status-message"></div>
@@ -78,67 +183,202 @@
     <div class="divider">New to LexCounsel?</div>
 
     <div class="auth-footer">
-      <a href="signup.html" style="display: inline-block; padding: 0.7rem 2rem; border: 1px solid var(--gold); border-radius: var(--radius-md); text-decoration: none;">Create an Account</a>
+      <a href="signup.html">Create an Account</a>
     </div>
   </div>
 </div>
 
-<!-- Dashboard Section -->
+<!-- ===== DASHBOARD SECTION ===== -->
 <div class="dashboard-container" id="dashboard-section">
-  <div style="max-width: 1000px; width: 100%; padding: 2rem;">
-    <nav class="navbar" style="margin-bottom: 2rem;">
-      <div class="container" style="max-width: 100%;">
-        <a href="index.html" class="nav-logo">
-          <svg viewBox="0 0 36 36" fill="none"><path d="M18 3L4 10v8c0 7 6 13.5 14 16 8-2.5 14-9 14-16v-8L18 3z" stroke="currentColor" stroke-width="1.5"/></svg>
-          <span class="nav-logo-text">LexCounsel India</span>
-        </a>
-        <div style="display: flex; gap: 1rem;">
-          <span id="user-email-display" style="color: var(--gold); font-weight: 600;"></span>
-          <a href="#" onclick="logout(); return false;" style="color: var(--muted); text-decoration: none; cursor: pointer;">Logout</a>
-        </div>
+  <div class="dashboard-wrapper">
+    <!-- Dashboard Topbar -->
+    <div class="dashboard-topbar">
+      <div class="logo-section">
+        <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 3L4 10v8c0 7 6 13.5 14 16 8-2.5 14-9 14-16v-8L18 3z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <line x1="18" y1="8" x2="18" y2="28" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="9" y1="17" x2="27" y2="17" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <a href="index.html">LexCounsel India</a>
       </div>
-    </nav>
-
-    <div class="dashboard-header">
-      <h1 id="user-greeting">Welcome, User</h1>
-      <p>Manage your legal consultations and payments</p>
+      <div class="user-info">
+        <span class="user-email" id="user-email-display"></span>
+        <button class="btn-logout-nav" onclick="logout()">Logout</button>
+      </div>
     </div>
 
-    <div class="cart-section">
-      <h2>Your Consultation Cart</h2>
-      <div id="cart-list">
-        <div class="cart-item">
-          <div>
-            <strong>Property Title Verification</strong><br>
-            <small style="color:var(--muted)">Assigned: Adv. Subhashis Paul</small>
+    <!-- Main Dashboard Layout -->
+    <div class="dashboard-layout">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Profile Card -->
+        <div class="sidebar-section profile-card">
+          <div class="profile-avatar" id="profile-avatar">YP</div>
+          <div class="profile-name" id="profile-name">User Name</div>
+          <div class="profile-email" id="profile-email-display">email@example.com</div>
+          <div class="profile-stats">
+            <div class="stat-item">
+              <div class="stat-value" id="stat-bookings">0</div>
+              <div class="stat-label">Bookings</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="stat-spent">₹0</div>
+              <div class="stat-label">Spent</div>
+            </div>
           </div>
-          <div style="color:var(--gold); font-weight: 600;">₹1,499</div>
         </div>
-        <div class="cart-item">
-          <div>
-            <strong>Standard Consultation</strong><br>
-            <small style="color:var(--muted)">30-min Video Call</small>
+
+        <!-- Navigation Tabs -->
+        <div class="sidebar-section">
+          <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('services')">🛍️ Services</button>
+            <button class="nav-tab" onclick="switchTab('cart')">🛒 Cart</button>
+            <button class="nav-tab" onclick="switchTab('bookings')">📅 Bookings</button>
+            <button class="nav-tab" onclick="switchTab('favorites')">⭐ Saved Advocates</button>
+            <button class="nav-tab" onclick="switchTab('settings')">⚙️ Settings</button>
           </div>
-          <div style="color:var(--gold); font-weight: 600;">₹499</div>
         </div>
       </div>
-      <div class="cart-total">Total: ₹1,998</div>
 
-      <div class="action-buttons">
-        <button class="btn-action btn-checkout" onclick="proceedToCheckout()">Proceed to Checkout</button>
-        <button class="btn-action btn-logout" onclick="logout()">Logout</button>
+      <!-- Main Content -->
+      <div class="dashboard-content">
+        <!-- Services Tab -->
+        <div id="services" class="content-section active">
+          <div class="services-grid" id="services-grid">
+            <!-- Services will be populated by JS -->
+          </div>
+        </div>
+
+        <!-- Cart Tab -->
+        <div id="cart" class="content-section">
+          <div class="cart-card">
+            <div class="cart-header">
+              <h2>Your Consultation Cart</h2>
+              <span class="cart-count" id="cart-count">0</span>
+            </div>
+            <div class="cart-items" id="cart-list"></div>
+            <div id="cart-summary"></div>
+            <div class="cart-actions">
+              <button class="btn-checkout" onclick="proceedToCheckout()">💳 Proceed to Checkout</button>
+              <button class="btn-continue-shopping" onclick="switchTab('services')">← Continue Shopping</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bookings Tab -->
+        <div id="bookings" class="content-section">
+          <div class="cart-card">
+            <h2>Your Bookings</h2>
+            <div id="bookings-list"></div>
+          </div>
+        </div>
+
+        <!-- Favorites Tab -->
+        <div id="favorites" class="content-section">
+          <div class="cart-card">
+            <h2>Saved Advocates</h2>
+            <div id="favorites-list"></div>
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="content-section">
+          <div class="cart-card">
+            <h2>Account Settings</h2>
+            <form class="settings-form">
+              <div class="form-section">
+                <h3>Profile Information</h3>
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input type="text" class="form-control" id="settings-name" placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" class="form-control" id="settings-email" placeholder="Your email" disabled>
+                </div>
+                <div class="form-group">
+                  <label>Phone</label>
+                  <input type="tel" class="form-control" id="settings-phone" placeholder="+91 XXXXX XXXXX">
+                </div>
+                <button type="button" class="btn-checkout" onclick="saveSettings()">Save Changes</button>
+              </div>
+              <div class="form-section">
+                <h3>Preferences</h3>
+                <label style="display: flex; gap: 0.5rem; margin-bottom: 1rem; cursor: pointer;">
+                  <input type="checkbox" id="pref-email" checked>
+                  <span>Receive email notifications</span>
+                </label>
+                <label style="display: flex; gap: 0.5rem; cursor: pointer;">
+                  <input type="checkbox" id="pref-sms" checked>
+                  <span>Receive SMS notifications</span>
+                </label>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  const loginForm = document.getElementById('login-form');
-  const loginSection = document.getElementById('login-section');
-  const dashboardSection = document.getElementById('dashboard-section');
-  const statusMsg = document.getElementById('status-message');
+  // Sample services data
+  const SERVICES = [
+    {
+      id: 1,
+      name: "Free Consultation",
+      price: 0,
+      duration: "15 min",
+      description: "Introductory call to assess your legal matter",
+      category: "General"
+    },
+    {
+      id: 2,
+      name: "Standard Consultation",
+      price: 499,
+      duration: "30 min",
+      description: "In-depth consultation with a senior advocate",
+      category: "Popular"
+    },
+    {
+      id: 3,
+      name: "Premium Consultation",
+      price: 999,
+      duration: "60 min",
+      description: "Comprehensive legal advice + written summary",
+      category: "Popular"
+    },
+    {
+      id: 4,
+      name: "Document Review",
+      price: 799,
+      duration: "Per document",
+      description: "Expert review of legal documents",
+      category: "Documents"
+    },
+    {
+      id: 5,
+      name: "Corporate Legal Package",
+      price: 2499,
+      duration: "90 min",
+      description: "Corporate strategy session + detailed memo",
+      category: "Corporate"
+    },
+    {
+      id: 6,
+      name: "Property Legal Audit",
+      price: 1499,
+      duration: "120 min",
+      description: "Complete property legal verification",
+      category: "Property"
+    }
+  ];
 
-  // Check if user is already logged in
+  // Initialize
+  let userCart = JSON.parse(localStorage.getItem('userCart')) || [];
+  let userBookings = JSON.parse(localStorage.getItem('userBookings')) || [];
+  let userFavorites = JSON.parse(localStorage.getItem('userFavorites')) || [];
+
   window.addEventListener('DOMContentLoaded', () => {
     const userEmail = localStorage.getItem('userEmail');
     const userToken = localStorage.getItem('userToken');
@@ -148,7 +388,8 @@
     }
   });
 
-  loginForm.addEventListener('submit', async (e) => {
+  // Login functionality
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const email = document.getElementById('email').value.trim();
@@ -159,8 +400,7 @@
       return;
     }
 
-    const submitBtn = loginForm.querySelector('.btn-submit');
-    const originalText = submitBtn.textContent;
+    const submitBtn = document.querySelector('.btn-submit');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Signing In...';
 
@@ -178,21 +418,20 @@
         localStorage.setItem('userFullName', data.user.fullName);
         localStorage.setItem('userToken', data.token);
 
-        showStatus('✓ Login successful! Loading dashboard...', 'success');
-        
+        showStatus('✓ Login successful!', 'success');
         setTimeout(() => {
           showDashboard(data.user);
-        }, 1000);
+        }, 500);
       } else {
         showStatus(data.message || 'Login failed', 'error');
         submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
+        submitBtn.textContent = 'Sign In';
       }
     } catch (error) {
       console.error('Login Error:', error);
-      showStatus('Server error. Make sure the auth server is running on localhost:3000', 'error');
+      showStatus('Server error. Ensure auth server is running on localhost:3000', 'error');
       submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
+      submitBtn.textContent = 'Sign In';
     }
   });
 
@@ -214,17 +453,228 @@
   }
 
   function showDashboard(user) {
-    loginSection.style.display = 'none';
-    dashboardSection.style.display = 'block';
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'block';
     
-    document.getElementById('user-greeting').textContent = `Welcome, ${user.fullName}!`;
+    // Update user info
+    const initials = user.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
+    document.getElementById('profile-avatar').textContent = initials;
+    document.getElementById('profile-name').textContent = user.fullName;
+    document.getElementById('profile-email-display').textContent = user.email;
     document.getElementById('user-email-display').textContent = user.email;
+
+    // Render services
+    renderServices();
+    renderCart();
+    renderBookings();
+    renderFavorites();
+    loadSettings();
+  }
+
+  function renderServices() {
+    const servicesGrid = document.getElementById('services-grid');
+    servicesGrid.innerHTML = SERVICES.map(service => `
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-name">${service.name}</div>
+          ${service.category === 'Popular' ? '<div class="service-badge">⭐ POPULAR</div>' : ''}
+        </div>
+        <div class="service-desc">${service.description}</div>
+        <div class="service-details">
+          <div class="service-detail-item">
+            <span>⏱️</span> <span>${service.duration}</span>
+          </div>
+          <div class="service-detail-item">
+            <span>📋</span> <span>${service.category}</span>
+          </div>
+        </div>
+        <div class="service-price">₹${service.price}</div>
+        <button class="btn-add-to-cart" onclick="addToCart(${service.id})">+ Add to Cart</button>
+      </div>
+    `).join('');
+  }
+
+  function addToCart(serviceId) {
+    const service = SERVICES.find(s => s.id === serviceId);
+    if (service) {
+      userCart.push(service);
+      localStorage.setItem('userCart', JSON.stringify(userCart));
+      renderCart();
+      switchTab('cart');
+      
+      // Visual feedback
+      showStatus(`✓ ${service.name} added to cart!`, 'success');
+    }
+  }
+
+  function renderCart() {
+    const cartList = document.getElementById('cart-list');
+    const cartCount = document.getElementById('cart-count');
+    const cartSummary = document.getElementById('cart-summary');
+
+    cartCount.textContent = userCart.length;
+
+    if (userCart.length === 0) {
+      cartList.innerHTML = '<div class="empty-state"><div class="empty-icon">🛒</div><h3>Your cart is empty</h3><p>Browse services and add consultations to get started</p></div>';
+      cartSummary.innerHTML = '';
+      return;
+    }
+
+    const total = userCart.reduce((sum, item) => sum + item.price, 0);
+
+    cartList.innerHTML = userCart.map((item, index) => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <h4>${item.name}</h4>
+          <p>${item.description}</p>
+          <p style="font-size: 0.8rem; margin-top: 0.5rem;">Duration: ${item.duration}</p>
+        </div>
+        <div class="cart-item-price">₹${item.price}</div>
+        <div class="cart-item-actions">
+          <button class="btn-remove" onclick="removeFromCart(${index})">Remove</button>
+        </div>
+      </div>
+    `).join('');
+
+    cartSummary.innerHTML = `
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>₹${total}</span>
+        </div>
+        <div class="summary-row">
+          <span>GST (18%):</span>
+          <span>₹${Math.round(total * 0.18)}</span>
+        </div>
+        <div class="summary-total">
+          <span>Total Amount:</span>
+          <span>₹${Math.round(total * 1.18)}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function removeFromCart(index) {
+    userCart.splice(index, 1);
+    localStorage.setItem('userCart', JSON.stringify(userCart));
+    renderCart();
+  }
+
+  function renderBookings() {
+    const bookingsList = document.getElementById('bookings-list');
+
+    if (userBookings.length === 0) {
+      bookingsList.innerHTML = '<div class="empty-state"><div class="empty-icon">📅</div><h3>No bookings yet</h3><p>Book a consultation to see your appointments here</p></div>';
+      return;
+    }
+
+    bookingsList.innerHTML = userBookings.map(booking => `
+      <div class="booking-item">
+        <div class="booking-header">
+          <div class="booking-title">${booking.service}</div>
+          <div class="booking-status ${booking.status === 'completed' ? 'status-completed' : 'status-pending'}">
+            ${booking.status.toUpperCase()}
+          </div>
+        </div>
+        <div class="booking-details">
+          <div class="detail-item">
+            <h5>Date</h5>
+            <p>${booking.date}</p>
+          </div>
+          <div class="detail-item">
+            <h5>Advocate</h5>
+            <p>${booking.advocate}</p>
+          </div>
+          <div class="detail-item">
+            <h5>Amount</h5>
+            <p>₹${booking.amount}</p>
+          </div>
+          <div class="detail-item">
+            <h5>Booking ID</h5>
+            <p>${booking.id}</p>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderFavorites() {
+    const favoritesList = document.getElementById('favorites-list');
+
+    if (userFavorites.length === 0) {
+      favoritesList.innerHTML = '<div class="empty-state"><div class="empty-icon">⭐</div><h3>No saved advocates</h3><p>Add your favorite advocates here for quick access</p></div>';
+      return;
+    }
+
+    favoritesList.innerHTML = userFavorites.map(advocate => `
+      <div class="booking-item">
+        <div class="booking-header">
+          <div class="booking-title">${advocate.name}</div>
+          <button class="btn-remove" onclick="removeFromFavorites('${advocate.name}')">Remove</button>
+        </div>
+        <div class="booking-details">
+          <div class="detail-item">
+            <h5>Specialization</h5>
+            <p>${advocate.specialization}</p>
+          </div>
+          <div class="detail-item">
+            <h5>Location</h5>
+            <p>${advocate.location}</p>
+          </div>
+          <div class="detail-item">
+            <h5>Rating</h5>
+            <p>⭐ ${advocate.rating}/5</p>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function removeFromFavorites(name) {
+    userFavorites = userFavorites.filter(a => a.name !== name);
+    localStorage.setItem('userFavorites', JSON.stringify(userFavorites));
+    renderFavorites();
+  }
+
+  function loadSettings() {
+    const userFullName = localStorage.getItem('userFullName') || '';
+    const userEmail = localStorage.getItem('userEmail') || '';
+    
+    document.getElementById('settings-name').value = userFullName;
+    document.getElementById('settings-email').value = userEmail;
+  }
+
+  function saveSettings() {
+    const name = document.getElementById('settings-name').value;
+    if (name.trim()) {
+      localStorage.setItem('userFullName', name);
+      showStatus('✓ Settings saved successfully', 'success');
+    } else {
+      showStatus('Please enter your name', 'error');
+    }
+  }
+
+  function switchTab(tabName) {
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+
+    // Show selected section
+    const targetSection = document.getElementById(tabName);
+    if (targetSection) {
+      targetSection.classList.add('active');
+      
+      // Mark tab as active
+      event?.target?.classList.add('active');
+    }
   }
 
   function showStatus(message, type) {
+    const statusMsg = document.getElementById('status-message');
     statusMsg.textContent = message;
     statusMsg.className = 'status-message ' + type;
     statusMsg.style.display = 'block';
+    setTimeout(() => { statusMsg.style.display = 'none'; }, 4000);
   }
 
   function logout() {
@@ -233,7 +683,12 @@
   }
 
   function proceedToCheckout() {
-    window.location.href = 'consult.html';
+    if (userCart.length === 0) {
+      showStatus('Your cart is empty', 'error');
+      return;
+    }
+    // Proceed to payment page
+    window.location.href = 'checkout.html';
   }
 </script>
 </body>
