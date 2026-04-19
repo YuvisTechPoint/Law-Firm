@@ -2,6 +2,10 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
+const https = require('https');
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +13,94 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
+
+// Calendly configuration read from environment variables
+const CAL_CLIENT_ID = process.env.CAL_CLIENT_ID || null;
+const CAL_CLIENT_SECRET = process.env.CAL_CLIENT_SECRET || null;
+const CAL_WEBHOOK_SIGNING_KEY = process.env.CAL_WEBHOOK_SIGNING_KEY || null;
+
+// Helper: build redirect URI
+function getCalendlyRedirectUri(req) {
+  return process.env.CAL_REDIRECT_URI || `${req.protocol}://${req.get('host')}/api/calendly/oauth/callback`;
+}
+
+// OAuth: redirect user to Calendly authorize page
+app.get('/api/calendly/oauth/authorize', (req, res) => {
+  if (!CAL_CLIENT_ID) return res.status(500).json({ success: false, message: 'Calendly client ID not configured' });
+  const redirect_uri = getCalendlyRedirectUri(req);
+  const scope = [
+    'event_types:read',
+    'availability:read',
+    'scheduling_links:write',
+    'scheduled_events:write',
+    'webhooks:read',
+    'webhooks:write',
+    'users:read'
+  ].join(' ');
+
+  const url = `https://auth.calendly.com/oauth/authorize?client_id=${encodeURIComponent(CAL_CLIENT_ID)}&response_type=code&redirect_uri=${encodeURIComponent(redirect_uri)}&scope=${encodeURIComponent(scope)}`;
+  res.redirect(url);
+});
+
+// OAuth callback: exchange code for tokens
+app.get('/api/calendly/oauth/callback', (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.status(400).send('Missing code');
+  if (!CAL_CLIENT_ID || !CAL_CLIENT_SECRET) return res.status(500).send('Calendly client credentials not configured');
+
+  const redirect_uri = getCalendlyRedirectUri(req);
+  const postData = `grant_type=authorization_code&client_id=${encodeURIComponent(CAL_CLIENT_ID)}&client_secret=${encodeURIComponent(CAL_CLIENT_SECRET)}&code=${encodeURIComponent(code)}&redirect_uri=${encodeURIComponent(redirect_uri)}`;
+
+  const options = {
+    hostname: 'auth.calendly.com',
+    path: '/oauth/token',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': Buffer.byteLength(postData)
+    }
+  };
+
+  const tokenReq = https.request(options, tokenRes => {
+    let data = '';
+    tokenRes.on('data', chunk => data += chunk);
+    tokenRes.on('end', () => {
+      try {
+        const parsed = JSON.parse(data);
+        // Return tokens to caller (in production, store securely tied to user)
+        res.json({ success: true, tokens: parsed });
+      } catch (err) {
+        res.status(500).json({ success: false, message: 'Invalid token response', raw: data });
+      }
+    });
+  });
+
+  tokenReq.on('error', err => {
+    res.status(500).json({ success: false, message: 'Token request failed', error: err.message });
+  });
+
+  tokenReq.write(postData);
+  tokenReq.end();
+});
+
+// Calendly webhook endpoint (verifies HMAC-SHA256 signature)
+app.post('/api/calendly/webhook', bodyParser.raw({ type: 'application/json' }), (req, res) => {
+  if (!CAL_WEBHOOK_SIGNING_KEY) return res.status(500).send('Webhook signing key not configured');
+  const sigHeader = req.get('Calendly-Signature') || req.get('Calendly-Webhook-Signature') || req.get('X-Calendly-Signature');
+  if (!sigHeader) return res.status(400).send('Missing signature header');
+
+  const computed = crypto.createHmac('sha256', CAL_WEBHOOK_SIGNING_KEY).update(req.body).digest('hex');
+  if (sigHeader !== computed) {
+    console.warn('Invalid Calendly webhook signature', { received: sigHeader, computed });
+    return res.status(401).send('Invalid signature');
+  }
+
+  let payload = {};
+  try { payload = JSON.parse(req.body.toString()); } catch (e) { /* ignore */ }
+  console.log('Calendly webhook received:', payload.event || payload);
+  // TODO: handle relevant event types (invitee.created, event.canceled, etc.)
+  res.json({ success: true });
+});
 
 // Gmail SMTP Configuration using provided App Password
 const transporter = nodemailer.createTransport({
@@ -129,24 +221,13 @@ app.post('/api/auth/validate', (req, res) => {
 });
 
 // ─── Q&A STORAGE (File-based) ──────────────────
-const fs = require('fs');
-const path = require('path');
 const dbPath = path.join(__dirname, 'qa_db.json');
 
 // IMAP / Mail parser for inbound admin replies
-const imaps = require('imap-simple');
-const { simpleParser } = require('mailparser');
-
-const IMAP_CONFIG = {
-  imap: {
-    user: 'prasadyuvraj8805@gmail.com',
-    password: 'xovf bghy birg hkkx',
-    host: 'imap.gmail.com',
-    port: 993,
-    tls: true,
-    authTimeout: 3000
-  }
-};
+// NOTE: imap polling is started only when running the server directly (not when required by serverless)
+let imaps;
+let simpleParser;
+let IMAP_CONFIG;
 function getQuestions() {
   try {
     if (fs.existsSync(dbPath)) {
@@ -418,8 +499,34 @@ async function pollInboundReplies() {
   }
 }
 
-// Start polling every 15 seconds
-setInterval(pollInboundReplies, 15000);
+// Start polling every 15 seconds only when running locally (avoid background intervals on serverless platforms)
+if (require.main === module) {
+  // Only enable IMAP polling when explicitly requested via environment variable.
+  // This avoids TLS/certificate/network errors during local development or on serverless platforms.
+  if (process.env.ENABLE_IMAP === '1') {
+    try {
+      imaps = require('imap-simple');
+      simpleParser = require('mailparser').simpleParser;
+      IMAP_CONFIG = {
+        imap: {
+          user: 'prasadyuvraj8805@gmail.com',
+          password: 'xovf bghy birg hkkx',
+          host: 'imap.gmail.com',
+          port: 993,
+          tls: true,
+          authTimeout: 3000
+        }
+      };
+
+      setInterval(pollInboundReplies, 15000);
+      console.log('IMAP polling enabled (ENABLE_IMAP=1)');
+    } catch (err) {
+      console.warn('IMAP polling not started (imap modules missing or error):', err && err.message ? err.message : err);
+    }
+  } else {
+    console.log('IMAP polling disabled. Set ENABLE_IMAP=1 to enable inbound email polling.');
+  }
+}
 
 // ─── ADMIN PANEL: GET QUESTIONS FOR ADMIN ──────
 app.get('/api/qa/admin/pending', (req, res) => {
