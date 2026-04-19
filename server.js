@@ -108,6 +108,180 @@ app.post('/api/calendly/webhook', bodyParser.raw({ type: 'application/json' }), 
   res.json({ success: true });
 });
 
+// Create Calendly scheduling link endpoint
+app.post('/api/calendly/create-scheduling-link', async (req, res) => {
+  const { code, event_type_name } = req.body;
+
+  if (!code) {
+    return res.status(400).json({ success: false, message: 'Authorization code required. First visit /api/calendly/oauth/authorize' });
+  }
+
+  if (!CAL_CLIENT_ID || !CAL_CLIENT_SECRET) {
+    return res.status(500).json({ success: false, message: 'Calendly client credentials not configured' });
+  }
+
+  try {
+    // Step 1: Exchange code for access token
+    const tokenPostData = `grant_type=authorization_code&client_id=${encodeURIComponent(CAL_CLIENT_ID)}&client_secret=${encodeURIComponent(CAL_CLIENT_SECRET)}&code=${encodeURIComponent(code)}&redirect_uri=${encodeURIComponent(getCalendlyRedirectUri(req))}`;
+
+    const token = await new Promise((resolve, reject) => {
+      const options = {
+        hostname: 'auth.calendly.com',
+        path: '/oauth/token',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Length': Buffer.byteLength(tokenPostData)
+        }
+      };
+
+      const tokenReq = https.request(options, tokenRes => {
+        let data = '';
+        tokenRes.on('data', chunk => data += chunk);
+        tokenRes.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            if (parsed.access_token) {
+              resolve(parsed.access_token);
+            } else {
+              reject(new Error('No access token in response'));
+            }
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+
+      tokenReq.on('error', reject);
+      tokenReq.write(tokenPostData);
+      tokenReq.end();
+    });
+
+    // Step 2: Get current user info to retrieve user URI
+    const userInfo = await new Promise((resolve, reject) => {
+      const options = {
+        hostname: 'api.calendly.com',
+        path: '/users/me',
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
+        }
+      };
+
+      const userReq = https.request(options, userRes => {
+        let data = '';
+        userRes.on('data', chunk => data += chunk);
+        userRes.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed.resource);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+
+      userReq.on('error', reject);
+      userReq.end();
+    });
+
+    const userUri = userInfo.uri;
+
+    // Step 3: Get event types to find the consultation event
+    const eventTypes = await new Promise((resolve, reject) => {
+      const options = {
+        hostname: 'api.calendly.com',
+        path: `/event_types?user=${encodeURIComponent(userUri)}`,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
+        }
+      };
+
+      const eventsReq = https.request(options, eventsRes => {
+        let data = '';
+        eventsRes.on('data', chunk => data += chunk);
+        eventsRes.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed.collection || []);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+
+      eventsReq.on('error', reject);
+      eventsReq.end();
+    });
+
+    const consultationEvent = eventTypes.find(evt => 
+      evt.name.toLowerCase().includes((event_type_name || 'consultation').toLowerCase())
+    );
+
+    if (!consultationEvent) {
+      return res.status(404).json({ 
+        success: false, 
+        message: `Event type "${event_type_name || 'consultation'}" not found. Available events: ${eventTypes.map(e => e.name).join(', ')}`
+      });
+    }
+
+    // Step 4: Create a scheduling link
+    const linkPostData = JSON.stringify({
+      event_type: consultationEvent.uri,
+      owner: userUri,
+      max_event_count: 1
+    });
+
+    const schedulingLink = await new Promise((resolve, reject) => {
+      const options = {
+        hostname: 'api.calendly.com',
+        path: '/scheduling_links',
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(linkPostData)
+        }
+      };
+
+      const linkReq = https.request(options, linkRes => {
+        let data = '';
+        linkRes.on('data', chunk => data += chunk);
+        linkRes.on('end', () => {
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed.resource);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
+
+      linkReq.on('error', reject);
+      linkReq.write(linkPostData);
+      linkReq.end();
+    });
+
+    res.json({
+      success: true,
+      message: 'Scheduling link created',
+      scheduling_link: schedulingLink.booking_url,
+      event_type: consultationEvent.name
+    });
+
+  } catch (err) {
+    console.error('Error creating scheduling link:', err);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to create scheduling link',
+      error: err.message 
+    });
+  }
+});
+
 // Gmail SMTP Configuration using provided App Password
 const transporter = nodemailer.createTransport({
   service: 'gmail',
