@@ -12,7 +12,11 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname)));
+
+// Serve static files only when running locally (not on Vercel serverless)
+if (require.main === module) {
+  app.use(express.static(path.join(__dirname)));
+}
 
 // Calendly configuration read from environment variables
 const CAL_CLIENT_ID = process.env.CAL_CLIENT_ID || null;

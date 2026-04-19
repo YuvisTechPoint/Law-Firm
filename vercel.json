@@ -1,5 +1,9 @@
 {
+  "buildCommand": "echo 'Static site, no build needed'",
+  "outputDirectory": ".",
+  "public": true,
   "routes": [
-    { "src": "/api(?:/.*)?$", "dest": "/api/index.js" }
+    { "src": "/api(?:/.*)?$", "dest": "/api/index.js" },
+    { "src": "/(?!api).*", "dest": "/$1" }
   ]
 }
