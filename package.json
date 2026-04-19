@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^2.2.2",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "imap-simple": "^5.1.0",
     "mailparser": "^3.9.8",

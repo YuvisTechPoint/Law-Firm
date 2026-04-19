@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
@@ -110,8 +112,8 @@ app.post('/api/calendly/webhook', bodyParser.raw({ type: 'application/json' }), 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'prasadyuvraj8805@gmail.com',
-    pass: 'xovf bghy birg hkkx'
+    user: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
+    pass: process.env.SMTP_PASS || 'xovf bghy birg hkkx'
   }
 });
 
@@ -141,7 +143,7 @@ app.post('/api/auth/signup', async (req, res) => {
 
   // Send welcome email
   const mailOptions = {
-    from: 'prasadyuvraj8805@gmail.com',
+    from: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
     to: email,
     subject: 'Welcome to LexCounsel India - Account Created',
     text: `Hello ${fullName},\n\nWelcome to LexCounsel India!\n\nYour account has been successfully created.\n\nEmail: ${email}\nCreated: ${new Date().toLocaleString()}\n\nYou can now log in to access our legal services.`,
@@ -180,7 +182,7 @@ app.post('/api/auth/login', async (req, res) => {
 
   // Send login notification email
   const mailOptions = {
-    from: 'prasadyuvraj8805@gmail.com',
+    from: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
     to: email,
     subject: 'Login Notification - LexCounsel India',
     text: `Hello ${user.fullName},\n\nYou have successfully logged in to your LexCounsel India account.\n\nLogin Time: ${new Date().toLocaleString()}\n\nIf this wasn't you, please change your password immediately.`,
@@ -280,7 +282,7 @@ app.post('/api/qa/ask', async (req, res) => {
 
   // ─── Send email to user ────────────────────────
   const userMailOptions = {
-    from: 'prasadyuvraj8805@gmail.com',
+    from: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
     to: email,
     subject: `Question Received - LexCounsel India`,
     html: `
@@ -301,8 +303,8 @@ app.post('/api/qa/ask', async (req, res) => {
 
   // ─── Send email to admin ───────────────────────
   const adminMailOptions = {
-    from: 'prasadyuvraj8805@gmail.com',
-    to: 'prasadyuvraj8805@gmail.com',
+    from: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
+    to: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
     subject: `[NEW QUESTION] ${title} - LexCounsel QA`,
     html: `
       <h3>New Legal Question Submitted</h3>
@@ -377,7 +379,7 @@ app.post('/api/qa/reply', async (req, res) => {
 
   // ─── Send reply email to user ──────────────────
   const userMailOptions = {
-    from: 'prasadyuvraj8805@gmail.com',
+    from: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
     to: question.email,
     subject: `Your Question Answered - LexCounsel India`,
     html: `
@@ -468,7 +470,7 @@ async function pollInboundReplies() {
 
       // Send reply email to the user
       const mailOptions = {
-        from: 'prasadyuvraj8805@gmail.com',
+        from: process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
         to: question.email,
         subject: `Your Question Answered - LexCounsel India`,
         html: `
@@ -513,8 +515,8 @@ if (require.main === module) {
       simpleParser = require('mailparser').simpleParser;
       IMAP_CONFIG = {
         imap: {
-          user: 'prasadyuvraj8805@gmail.com',
-          password: 'xovf bghy birg hkkx',
+          user: process.env.IMAP_USER || process.env.SMTP_USER || 'prasadyuvraj8805@gmail.com',
+          password: process.env.IMAP_PASS || process.env.SMTP_PASS || 'xovf bghy birg hkkx',
           host: 'imap.gmail.com',
           port: 993,
           tls: true,
