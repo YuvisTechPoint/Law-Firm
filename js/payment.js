@@ -3,7 +3,6 @@
    ============================================ */
 
 const RAZORPAY_KEY = 'rzp_test_SfTBR0XRUt3eHw'; // Razorpay Test Key ID
-const RAZORPAY_SECRET = '4IMukANpw5psUOYADQOBCU4r'; // Razorpay Test Key Secret
 
 const plans = {
   free:      { name: 'Free Initial Consultation', amount: 0,    description: '15-min introductory call' },
@@ -16,7 +15,50 @@ let selectedPlan = null;
 let currentStep = 1;
 let bookingDetails = {};
 
+// ─── Toast Notification Function ─────────────────
+function showToast(message, type = 'info') {
+  console.log(`[${type.toUpperCase()}] ${message}`);
+  
+  // Create toast element if it doesn't exist
+  let toastContainer = document.getElementById('toast-container');
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.id = 'toast-container';
+    toastContainer.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      font-family: var(--font-body, 'Inter', sans-serif);
+    `;
+    document.body.appendChild(toastContainer);
+  }
+
+  const toast = document.createElement('div');
+  const bgColor = type === 'success' ? 'rgba(46, 204, 113, 0.9)' : 
+                  type === 'error' ? 'rgba(231, 76, 60, 0.9)' : 
+                  'rgba(52, 152, 219, 0.9)';
+  
+  toast.style.cssText = `
+    background: ${bgColor};
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    animation: slideIn 0.3s ease-out;
+    font-size: 14px;
+  `;
+  toast.textContent = message;
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = 'slideOut 0.3s ease-out';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Payment.js initialized - Razorpay Key:', RAZORPAY_KEY.slice(0, 15) + '...');
 
   // ─── Plan Selection ──────────────────────────────
   document.querySelectorAll('.plan-card').forEach(card => {
@@ -24,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       selectedPlan = card.dataset.plan;
+      console.log('Plan selected:', selectedPlan);
       updatePaymentSummary();
     });
   });
@@ -48,14 +91,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function goToStep(step) {
+    console.log('Going to step:', step);
     document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
     const target = document.getElementById('step-' + step);
-    if (target) target.classList.add('active');
+    if (target) {
+      target.classList.add('active');
+      target.style.display = 'block';
+    }
 
     document.querySelectorAll('.step-dot').forEach((dot, i) => {
-      dot.classList.remove('active');
+      dot.classList.remove('active', 'completed');
       if (i + 1 < step) dot.classList.add('completed');
-      else dot.classList.remove('completed');
       if (i + 1 === step) dot.classList.add('active');
     });
     currentStep = step;
@@ -65,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function validateCurrentStep() {
     if (currentStep === 1 && !selectedPlan) {
-      if (window.showToast) showToast('Please select a consultation plan to continue.', 'error');
+      showToast('Please select a consultation plan to continue.', 'error');
       return false;
     }
     if (currentStep === 2) {
@@ -82,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       if (!valid) {
-        if (window.showToast) showToast('Please fill all required fields.', 'error');
+        showToast('Please fill all required fields.', 'error');
         return false;
       }
       // Collect form data
@@ -134,17 +180,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const payBtn = document.getElementById('pay-btn');
   if (payBtn) {
     payBtn.addEventListener('click', () => {
+      console.log('Pay button clicked');
       const plan = plans[selectedPlan];
-      if (!plan) return;
+      if (!plan) {
+        showToast('Please select a plan first', 'error');
+        return;
+      }
 
       if (plan.amount === 0) {
         // Free consultation — skip payment
+        console.log('Free consultation selected');
         showConfirmation('FREE-' + Date.now().toString().slice(-6));
         return;
       }
 
       const gst = Math.round(plan.amount * 0.18);
       const total = plan.amount + gst;
+      console.log('Opening Razorpay with amount:', total);
 
       const options = {
         key: RAZORPAY_KEY,
@@ -152,8 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currency: 'INR',
         name: 'LexCounsel India',
         description: plan.description,
-        image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png', // Using an absolute icon path for the modal
+        image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
         handler: function(response) {
+          console.log('Payment successful:', response);
           showConfirmation(response.razorpay_payment_id || 'DEMO-' + Date.now().toString().slice(-6));
         },
         prefill: {
@@ -166,38 +219,45 @@ document.addEventListener('DOMContentLoaded', () => {
           preferred_date: bookingDetails.date,
           preferred_time: bookingDetails.time
         },
-        theme: { color: '#C9A84C' },
+        theme: { color: '#D4AF37' },
         modal: {
           ondismiss: function() {
-            if (window.showToast) showToast('Payment cancelled. Your booking details are saved.', 'info');
+            console.log('Payment dismissed');
+            showToast('Payment cancelled. Your booking details are saved.', 'info');
           }
         }
       };
 
       try {
         if (typeof Razorpay === 'undefined') {
-          console.error('Razorpay SDK not loaded. Check your internet connection.');
-          if (window.showToast) showToast('Payment Gateway is currently unavailable. Please try again.', 'error');
-          // Simulated success for demo purposes if script fails to load
-          showConfirmation('DEMO-' + Date.now().toString().slice(-6));
+          console.error('Razorpay SDK not loaded');
+          showToast('Payment Gateway loading... please try again in 2 seconds', 'error');
+          setTimeout(() => {
+            // Retry
+            const rzp = new Razorpay(options);
+            rzp.open();
+          }, 2000);
           return;
         }
+        console.log('Creating Razorpay instance...');
         const rzp = new Razorpay(options);
         rzp.open();
       } catch (e) {
         console.error('Razorpay Error:', e);
-        showConfirmation('DEMO-' + Date.now().toString().slice(-6));
+        showToast('Error opening payment gateway: ' + e.message, 'error');
       }
     });
   }
 
   // ─── Show Confirmation ───────────────────────────
   function showConfirmation(paymentId) {
+    console.log('Showing confirmation with ID:', paymentId);
     const consultForm = document.getElementById('consult-form-area');
     const confirmScreen = document.getElementById('confirmation-screen');
     if (consultForm) consultForm.style.display = 'none';
     if (confirmScreen) {
       confirmScreen.classList.add('active');
+      confirmScreen.style.display = 'block';
       const bId = confirmScreen.querySelector('.booking-id');
       if (bId) bId.textContent = 'Booking ID: ' + paymentId;
       const waLink = confirmScreen.querySelector('.whatsapp-confirm-btn');
@@ -206,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         waLink.href = `https://wa.me/919800000000?text=${msg}`;
       }
     }
-    if (window.showToast) showToast('Booking confirmed! Check your email for details.', 'success');
+    showToast('✓ Booking confirmed! Check your email for details.', 'success');
   }
 
   // Initialize first step
