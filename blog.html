@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Blog — LexCounsel India</title>
+  <meta name="description" content="Expert legal articles, guides, and updates by LexCounsel India advocates. Stay informed on Indian law.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    .blog-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+    .blog-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s ease; margin-bottom: 1.5rem; }
+    .blog-card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: 0 8px 30px rgba(201,168,76,0.12); }
+    .blog-card-img { height: 200px; background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card)); position: relative; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .blog-card-body { padding: 1.5rem; }
+    .blog-card-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .blog-card h3 { font-size: 1.2rem; margin-bottom: 0.75rem; transition: color 0.2s; }
+    .blog-card:hover h3 { color: var(--gold); }
+    .blog-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+    .blog-card .read-more { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--gold); font-weight: 500; margin-top: 1rem; transition: gap 0.2s; }
+    .blog-card:hover .read-more { gap: 10px; }
+    .blog-sidebar .card { margin-bottom: 1rem; }
+    .blog-sidebar h4 { font-size: 1rem; margin-bottom: 1rem; color: var(--gold); }
+    .sidebar-post { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(201,168,76,0.05); }
+    .sidebar-post:last-child { border-bottom: none; }
+    .sidebar-post .sp-num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: rgba(201,168,76,0.2); flex-shrink: 0; line-height: 1; }
+    .sidebar-post h5 { font-size: 0.85rem; font-family: var(--font-body); font-weight: 500; line-height: 1.4; color: var(--ivory); margin-bottom: 4px; }
+    .sidebar-post span { font-size: 0.75rem; color: var(--muted); }
+    .cat-pill { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; margin: 3px; cursor: pointer; transition: all 0.2s; }
+    @media (max-width: 768px) { .blog-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <a href="mailto:info@lexcounsel.in">✉ info@lexcounsel.in</a>
+      <a href="tel:+919800000000" class="hide-mobile">📞 +91 98000 00000</a>
+    </div>
+    <div class="topbar-right"><a href="consult.html">Quick Consultation →</a></div>
+  </div>
+</div>
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 36 36" fill="none"><path d="M18 3L4 10v8c0 7 6 13.5 14 16 8-2.5 14-9 14-16v-8L18 3z" stroke="currentColor" stroke-width="1.5"/><line x1="18" y1="8" x2="18" y2="28" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="17" x2="27" y2="17" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span class="nav-logo-text">LexCounsel India</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="services.html">Services</a>
+      <a href="lawyers.html">Advocates</a><a href="qa.html">Legal Q&A</a>
+      <a href="blog.html" class="active">Blog</a><a href="about.html">About</a>
+      <a href="consult.html" class="btn btn-outline btn-nav">Free Legal Advice</a>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="lawyers.html">Advocates</a><a href="qa.html">Q&A</a>
+  <a href="blog.html">Blog</a><a href="about.html">About</a>
+  <a href="consult.html" class="btn btn-gold" style="margin-top:1rem">Book Consultation</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="label">Legal Knowledge Hub</span>
+    <h1>Legal Blog & Articles</h1>
+    <p>Expert legal guides, updates, and insights from our team of distinguished advocates</p>
+  </div>
+</div>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="blog-grid">
+      <!-- Main Posts -->
+      <div>
+        <div class="blog-card reveal">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#1A1D2E,#0D2137)">
+            <span>🛍️</span>
+            <span style="position:absolute;top:12px;left:12px" class="badge badge-gold">Consumer Law</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span>By Adv. Lakshmi Nair</span>
+              <span>•</span>
+              <span>March 15, 2024</span>
+              <span>•</span>
+              <span>5 min read</span>
+            </div>
+            <h3>How to File a Consumer Complaint in India (2024 Guide)</h3>
+            <p>A step-by-step guide to filing complaints before Consumer Forum, State Commission, and National Commission. Know your rights, the process, and how to maximize your chances of success.</p>
+            <span class="read-more">Read Full Article →</span>
+          </div>
+        </div>
+
+        <div class="blog-card reveal">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#1A1D2E,#1D1A37)">
+            <span>🏡</span>
+            <span style="position:absolute;top:12px;left:12px" class="badge badge-gold">Property Law</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span>By Adv. Subhashis Paul</span><span>•</span><span>March 10, 2024</span><span>•</span><span>7 min read</span>
+            </div>
+            <h3>Property Dispute? Here's What You Must Know Before Going to Court</h3>
+            <p>Property disputes can drag on for years if mishandled. This guide covers pre-litigation steps, evidence collection, choosing the right forum, and realistic timeline expectations for resolution.</p>
+            <span class="read-more">Read Full Article →</span>
+          </div>
+        </div>
+
+        <div class="blog-card reveal">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#1A1D2E,#2D1A1A)">
+            <span>💳</span>
+            <span style="position:absolute;top:12px;left:12px" class="badge badge-gold">Criminal Law</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span>By Adv. Arjun Mehta</span><span>•</span><span>March 5, 2024</span><span>•</span><span>6 min read</span>
+            </div>
+            <h3>Cheque Bounce Cases Under Section 138 NI Act — Complete Guide</h3>
+            <p>Everything you need to know about cheque dishonour under Section 138 — from legal notice requirements and timelines to criminal complaint filing, trial procedure, and settlement options.</p>
+            <span class="read-more">Read Full Article →</span>
+          </div>
+        </div>
+
+        <div class="blog-card reveal">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#1A1D2E,#1A2D1E)">
+            <span>💑</span>
+            <span style="position:absolute;top:12px;left:12px" class="badge badge-gold">Family Law</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span>By Adv. Priya Sharma</span><span>•</span><span>Feb 28, 2024</span><span>•</span><span>8 min read</span>
+            </div>
+            <h3>Divorce in India: Legal Process, Timeline and What to Expect</h3>
+            <p>A comprehensive guide to divorce under Indian law — mutual consent vs contested divorce, High Court appeals, NRI divorce, interim maintenance, child custody considerations, and realistic timelines.</p>
+            <span class="read-more">Read Full Article →</span>
+          </div>
+        </div>
+
+        <div class="blog-card reveal">
+          <div class="blog-card-img" style="background:linear-gradient(135deg,#1A1D2E,#2D2D1A)">
+            <span>🚀</span>
+            <span style="position:absolute;top:12px;left:12px" class="badge badge-gold">Corporate Law</span>
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span>By Adv. Arjun Mehta</span><span>•</span><span>Feb 20, 2024</span><span>•</span><span>10 min read</span>
+            </div>
+            <h3>Startup Legal Checklist: What Every Founder Must Do in Year 1</h3>
+            <p>Critical legal steps for Indian startups — choosing the right business structure, IP registration, founder agreements, employment contracts, DPIIT recognition, and GST compliance essentials.</p>
+            <span class="read-more">Read Full Article →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="blog-sidebar">
+        <div class="card">
+          <h4>Popular Articles</h4>
+          <div class="sidebar-post">
+            <div class="sp-num">01</div>
+            <div><h5>How to contest a Will in India</h5><span>Jan 2024 · 5 min</span></div>
+          </div>
+          <div class="sidebar-post">
+            <div class="sp-num">02</div>
+            <div><h5>Domestic Violence Act — Rights & Remedies</h5><span>Dec 2023 · 6 min</span></div>
+          </div>
+          <div class="sidebar-post">
+            <div class="sp-num">03</div>
+            <div><h5>GST Notice? What to do next</h5><span>Nov 2023 · 4 min</span></div>
+          </div>
+          <div class="sidebar-post">
+            <div class="sp-num">04</div>
+            <div><h5>RERA: Builder Delay Remedies 2024</h5><span>Oct 2023 · 7 min</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Browse by Category</h4>
+          <div>
+            <span class="cat-pill badge badge-gold">Property Law</span>
+            <span class="cat-pill badge" style="background:rgba(155,89,182,0.1);color:#9B59B6">Family Law</span>
+            <span class="cat-pill badge" style="background:rgba(231,76,60,0.1);color:#E74C3C">Criminal</span>
+            <span class="cat-pill badge" style="background:rgba(41,128,185,0.1);color:#2980B9">Corporate</span>
+            <span class="cat-pill badge" style="background:rgba(22,160,133,0.1);color:#16A085">Cyber Law</span>
+            <span class="cat-pill badge" style="background:rgba(230,126,34,0.1);color:#E67E22">Consumer</span>
+            <span class="cat-pill badge" style="background:rgba(52,152,219,0.1);color:#3498DB">NRI Services</span>
+          </div>
+        </div>
+        <div class="card" style="text-align:center;background:rgba(201,168,76,0.06)">
+          <h4>Need Legal Help?</h4>
+          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem">Get expert advice from our advocates</p>
+          <a href="consult.html" class="btn btn-gold btn-full btn-sm">Book Consultation</a>
+          <a href="qa.html" class="btn btn-outline btn-full btn-sm" style="margin-top:8px">Ask Free Question</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2024 LexCounsel India. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="index.html">Home</a><a href="services.html">Services</a><a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

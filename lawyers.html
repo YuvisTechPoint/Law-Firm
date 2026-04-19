@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meet Our Advocates — LexCounsel India</title>
+  <meta name="description" content="Explore our panel of 500+ expert advocates across India. Filter by specialization, city, and experience level.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    .lawyers-filter-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+    .lawyers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .lawyer-full-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .lawyer-full-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold);
+      box-shadow: 0 8px 40px rgba(201,168,76,0.2);
+    }
+    .lawyer-full-card:hover .avatar {
+      box-shadow: 0 0 0 4px rgba(201,168,76,0.3);
+    }
+    .lawyer-full-card .avatar {
+      width: 90px;
+      height: 90px;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+    .lawyer-full-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+    .lawyer-full-card .loc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .lawyer-full-card .exp-badge {
+      background: rgba(201,168,76,0.1);
+      color: var(--gold);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+    .lawyer-courts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    .lawyer-lang {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .lawyer-card-footer {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    @media (max-width:1024px) { .lawyers-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:768px) {
+      .lawyers-filter-bar { grid-template-columns: 1fr; }
+      .lawyers-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <a href="mailto:info@lexcounsel.in">✉ info@lexcounsel.in</a>
+      <a href="tel:+919800000000" class="hide-mobile">📞 +91 98000 00000</a>
+    </div>
+    <div class="topbar-right"><a href="consult.html">Quick Consultation →</a></div>
+  </div>
+</div>
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 36 36" fill="none"><path d="M18 3L4 10v8c0 7 6 13.5 14 16 8-2.5 14-9 14-16v-8L18 3z" stroke="currentColor" stroke-width="1.5"/><line x1="18" y1="8" x2="18" y2="28" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="17" x2="27" y2="17" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span class="nav-logo-text">LexCounsel India</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="services.html">Services</a>
+      <a href="lawyers.html" class="active">Our Advocates</a><a href="qa.html">Legal Q&A</a>
+      <a href="blog.html">Blog</a><a href="about.html">About</a>
+      <a href="consult.html" class="btn btn-outline btn-nav">Free Legal Advice</a>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="lawyers.html">Advocates</a><a href="qa.html">Q&A</a>
+  <a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="consult.html" class="btn btn-gold" style="margin-top:1rem">Book Consultation</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="label">Our Expert Panel</span>
+    <h1>Meet Our Advocates</h1>
+    <p>Distinguished legal professionals with proven track records across all courts in India</p>
+  </div>
+</div>
+
+<!-- Stats Row -->
+<div style="background:var(--bg-secondary);border-bottom:1px solid var(--border);padding:1.5rem 0">
+  <div class="container">
+    <div style="display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;text-align:center">
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--gold)">500+</div><div style="font-size:0.82rem;color:var(--muted)">Verified Advocates</div></div>
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--gold)">25+</div><div style="font-size:0.82rem;color:var(--muted)">Practice Areas</div></div>
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--gold)">50+</div><div style="font-size:0.82rem;color:var(--muted)">Cities Covered</div></div>
+      <div><div style="font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--gold)">4.9★</div><div style="font-size:0.82rem;color:var(--muted)">Average Rating</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="section-sm">
+  <div class="container">
+    <!-- Filters -->
+    <div class="lawyers-filter-bar">
+      <div class="form-group" style="margin:0">
+        <select class="form-control" id="filter-area" aria-label="Practice Area">
+          <option value="">⚖ All Practice Areas</option>
+          <option>Criminal Law</option><option>Family Law</option><option>Property Law</option>
+          <option>Corporate Law</option><option>Cyber Law</option><option>Consumer Law</option>
+          <option>Labour Law</option><option>IP Rights</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin:0">
+        <select class="form-control" id="filter-city" aria-label="City">
+          <option value="">📍 All Cities</option>
+          <option>Kolkata</option><option>Delhi</option><option>Mumbai</option>
+          <option>Bangalore</option><option>Chennai</option><option>Hyderabad</option><option>Pune</option><option>Jaipur</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin:0">
+        <select class="form-control" id="filter-exp" aria-label="Experience">
+          <option value="">🏅 All Experience</option>
+          <option value="5">5+ Years</option><option value="10">10+ Years</option><option value="15">15+ Years</option>
+        </select>
+      </div>
+      <button class="btn btn-gold" id="apply-filters">Search</button>
+    </div>
+
+    <div class="lawyers-grid stagger-children" id="lawyers-grid">
+      <!-- Sample cards (JS would dynamically render from data) -->
+      <div class="lawyer-full-card">
+        <div class="avatar" style="background:linear-gradient(135deg,#C9A84C,#E8C97A)">SP</div>
+        <h3>Adv. Subhashis Paul</h3>
+        <div class="loc">📍 Kolkata, West Bengal</div>
+        <span class="exp-badge">15 Years Experience</span>
+        <div class="stars" style="margin-bottom:8px">★★★★★ 4.9</div>
+        <div class="lawyer-courts">
+          <span class="tag">High Court</span><span class="tag">Sessions Court</span>
+        </div>
+        <span class="badge badge-gold">Criminal Law</span>
+        <div class="lawyer-lang">🗣 Bengali · Hindi · English</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.5">Senior advocate with 15 years of experience in criminal defense, bail matters, and High Court practice.</p>
+        <div class="lawyer-card-footer">
+          <a href="https://calendly.com/lexcounsel-india/consultation" target="_blank" class="btn btn-gold btn-sm">📅 Schedule</a>
+          <a href="consult.html" class="btn btn-outline btn-sm">Pay & Book</a>
+        </div>
+      </div>
+      <div class="lawyer-full-card">
+        <div class="avatar" style="background:linear-gradient(135deg,#9B59B6,#C39BD3)">PS</div>
+        <h3>Adv. Priya Sharma</h3>
+        <div class="loc">📍 Delhi, Delhi</div>
+        <span class="exp-badge">12 Years Experience</span>
+        <div class="stars" style="margin-bottom:8px">★★★★★ 4.8</div>
+        <div class="lawyer-courts">
+          <span class="tag">High Court</span><span class="tag">Family Court</span>
+        </div>
+        <span class="badge badge-gold">Family Law</span>
+        <div class="lawyer-lang">🗣 Hindi · English</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.5">Expert in matrimonial disputes, divorce proceedings, child custody, and domestic violence cases.</p>
+        <div class="lawyer-card-footer">
+          <a href="consult.html" class="btn btn-gold btn-sm">Book Now</a>
+          <a href="qa.html" class="btn btn-outline btn-sm">Ask Question</a>
+        </div>
+      </div>
+      <div class="lawyer-full-card">
+        <div class="avatar" style="background:linear-gradient(135deg,#2980B9,#85C1E9)">AM</div>
+        <h3>Adv. Arjun Mehta</h3>
+        <div class="loc">📍 Mumbai, Maharashtra</div>
+        <span class="exp-badge">18 Years Experience</span>
+        <div class="stars" style="margin-bottom:8px">★★★★★ 4.9</div>
+        <div class="lawyer-courts">
+          <span class="tag">High Court</span><span class="tag">NCLT</span>
+        </div>
+        <span class="badge badge-gold">Corporate Law</span>
+        <div class="lawyer-lang">🗣 Marathi · Hindi · English</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.5">Corporate lawyer specializing in M&A, company formation, SEBI compliance, and commercial disputes.</p>
+        <div class="lawyer-card-footer">
+          <a href="consult.html" class="btn btn-gold btn-sm">Book Now</a>
+          <a href="qa.html" class="btn btn-outline btn-sm">Ask Question</a>
+        </div>
+      </div>
+      <div class="lawyer-full-card">
+        <div class="avatar" style="background:linear-gradient(135deg,#27AE60,#82E0AA)">LN</div>
+        <h3>Adv. Lakshmi Nair</h3>
+        <div class="loc">📍 Bangalore, Karnataka</div>
+        <span class="exp-badge">10 Years Experience</span>
+        <div class="stars" style="margin-bottom:8px">★★★★☆ 4.7</div>
+        <div class="lawyer-courts">
+          <span class="tag">High Court</span><span class="tag">RERA</span>
+        </div>
+        <span class="badge badge-gold">Property Law</span>
+        <div class="lawyer-lang">🗣 Kannada · Tamil · English</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.5">Property law specialist handling land disputes, title clearances, RERA complaints, and encroachment cases.</p>
+        <div class="lawyer-card-footer">
+          <a href="consult.html" class="btn btn-gold btn-sm">Book Now</a>
+          <a href="qa.html" class="btn btn-outline btn-sm">Ask Question</a>
+        </div>
+      </div>
+      <div class="lawyer-full-card">
+        <div class="avatar" style="background:linear-gradient(135deg,#16A085,#76D7C4)">MI</div>
+        <h3>Adv. Meera Iyer</h3>
+        <div class="loc">📍 Chennai, Tamil Nadu</div>
+        <span class="exp-badge">9 Years Experience</span>
+        <div class="stars" style="margin-bottom:8px">★★★★★ 4.9</div>
+        <div class="lawyer-courts">
+          <span class="tag">High Court</span><span class="tag">Cyber Cell</span>
+        </div>
+        <span class="badge badge-gold">Cyber Law</span>
+        <div class="lawyer-lang">🗣 Tamil · Telugu · English</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.5">Cyber law expert handling online fraud, data breach, defamation, and IT Act offenses.</p>
+        <div class="lawyer-card-footer">
+          <a href="consult.html" class="btn btn-gold btn-sm">Book Now</a>
+          <a href="qa.html" class="btn btn-outline btn-sm">Ask Question</a>
+        </div>
+      </div>
+      <div class="lawyer-full-card">
+        <div class="avatar" style="background:linear-gradient(135deg,#E67E22,#F0B27A)">SG</div>
+        <h3>Adv. Sanjay Gupta</h3>
+        <div class="loc">📍 Jaipur, Rajasthan</div>
+        <span class="exp-badge">14 Years Experience</span>
+        <div class="stars" style="margin-bottom:8px">★★★★☆ 4.7</div>
+        <div class="lawyer-courts">
+          <span class="tag">High Court</span><span class="tag">Labour Court</span>
+        </div>
+        <span class="badge badge-gold">Labour Law</span>
+        <div class="lawyer-lang">🗣 Hindi · Rajasthani · English</div>
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.5">Labour and employment law specialist with expertise in wrongful termination, PF, and ESI matters.</p>
+        <div class="lawyer-card-footer">
+          <a href="consult.html" class="btn btn-gold btn-sm">Book Now</a>
+          <a href="qa.html" class="btn btn-outline btn-sm">Ask Question</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem">
+      <p style="color:var(--muted);margin-bottom:1rem">Showing 6 of 500+ advocates in our network</p>
+      <a href="consult.html" class="btn btn-gold btn-lg">Connect With an Advocate</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2024 LexCounsel India. All advocates are verified members of Bar Council of India.</p>
+      <div class="footer-bottom-links">
+        <a href="index.html">Home</a><a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Live filter
+  const applyBtn = document.getElementById('apply-filters');
+  if (applyBtn) {
+    applyBtn.addEventListener('click', () => {
+      if (window.showToast) showToast('Search filters applied. Showing matching advocates.', 'info');
+    });
+  }
+</script>
+</body>
+</html>

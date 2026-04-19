@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Services — LexCounsel India</title>
+  <meta name="description" content="Expert legal services in India: Property Law, Family Law, Criminal Defense, Corporate Law, Cyber Law, Consumer Protection, and more.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    .services-full-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .service-big-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-big-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .service-big-card:hover::before { transform: scaleX(1); }
+    .service-big-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-strong);
+      box-shadow: 0 12px 40px rgba(201,168,76,0.15);
+    }
+    .service-big-icon {
+      width: 64px; height: 64px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .service-big-card h3 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+    .service-big-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .service-subcats { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1.25rem; }
+    @media (max-width:1024px) { .services-full-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:600px) { .services-full-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <a href="mailto:info@lexcounsel.in">✉ info@lexcounsel.in</a>
+      <a href="tel:+919800000000" class="hide-mobile">📞 +91 98000 00000</a>
+    </div>
+    <div class="topbar-right"><a href="consult.html">Quick Consultation →</a></div>
+  </div>
+</div>
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 36 36" fill="none"><path d="M18 3L4 10v8c0 7 6 13.5 14 16 8-2.5 14-9 14-16v-8L18 3z" stroke="currentColor" stroke-width="1.5"/><line x1="18" y1="8" x2="18" y2="28" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="17" x2="27" y2="17" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span class="nav-logo-text">LexCounsel India</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="services.html" class="active">Services</a>
+      <a href="lawyers.html">Our Advocates</a><a href="qa.html">Legal Q&A</a>
+      <a href="blog.html">Blog</a><a href="about.html">About</a>
+      <a href="consult.html" class="btn btn-outline btn-nav">Free Legal Advice</a>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="lawyers.html">Advocates</a><a href="qa.html">Q&A</a>
+  <a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="consult.html" class="btn btn-gold" style="margin-top:1rem">Book Consultation</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="label">Practice Areas</span>
+    <h1>Our Legal Services</h1>
+    <p>Comprehensive legal representation across all domains of Indian law</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="services-full-grid">
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <h3>Family & Matrimonial Law</h3>
+        <p>Expert guidance through divorce, child custody, maintenance disputes, domestic violence, and all matrimonial matters under Hindu, Muslim, Christian, and Special Marriage Acts.</p>
+        <div class="service-subcats">
+          <span class="tag">Divorce</span><span class="tag">Child Custody</span><span class="tag">Maintenance</span>
+          <span class="tag">Domestic Violence</span><span class="tag">Adoption</span><span class="tag">NRI Matrimonial</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3L4 8v6c0 4 3.5 7 8 9 4.5-2 8-5 8-9V8l-8-5z"/></svg></div>
+        <h3>Criminal Defense</h3>
+        <p>Vigorous criminal defense from FIR registration to High Court appeals. Expert bail applications, anticipatory bail, trial defense, and FIR quashing petitions.</p>
+        <div class="service-subcats">
+          <span class="tag">Bail Applications</span><span class="tag">Anticipatory Bail</span><span class="tag">FIR Quashing</span>
+          <span class="tag">Trial Defense</span><span class="tag">NDPS Cases</span><span class="tag">White Collar</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Property & Real Estate</h3>
+        <p>Complete legal services for property transactions, title disputes, RERA complaints against builders, landlord-tenant matters, and encroachment cases.</p>
+        <div class="service-subcats">
+          <span class="tag">Title Clearance</span><span class="tag">RERA Complaints</span><span class="tag">Land Disputes</span>
+          <span class="tag">Sale Deed</span><span class="tag">Mutation</span><span class="tag">Encroachment</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+        <h3>Corporate & Business Law</h3>
+        <p>End-to-end corporate legal services including company formation, shareholder agreements, M&A transactions, SEBI compliance, and commercial dispute resolution.</p>
+        <div class="service-subcats">
+          <span class="tag">Company Registration</span><span class="tag">LLP Formation</span><span class="tag">M&A</span>
+          <span class="tag">SEBI Compliance</span><span class="tag">Contract Drafting</span><span class="tag">Disputes</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Cyber Law</h3>
+        <p>Legal assistance for all cyber crimes including online fraud, identity theft, cyberbullying, data breaches, and offenses under Sections 66A-66F of the IT Act.</p>
+        <div class="service-subcats">
+          <span class="tag">Online Fraud</span><span class="tag">Cyberbullying</span><span class="tag">Data Breach</span>
+          <span class="tag">Online Defamation</span><span class="tag">Hacking</span><span class="tag">IT Act Cases</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+        <h3>Consumer Protection</h3>
+        <p>Assert your consumer rights against defective products, service deficiencies, unfair trade practices, and builder delays through Consumer Forum and RERA.</p>
+        <div class="service-subcats">
+          <span class="tag">Consumer Forum</span><span class="tag">Product Liability</span><span class="tag">E-commerce</span>
+          <span class="tag">Insurance Claims</span><span class="tag">Banking Disputes</span><span class="tag">RERA</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+        <h3>Cheque Bounce / NI Act</h3>
+        <p>Expert representation in Section 138 NI Act cheque dishonour cases — from legal notice drafting to criminal complaint and full recovery proceedings.</p>
+        <div class="service-subcats">
+          <span class="tag">Section 138 Cases</span><span class="tag">Legal Notice</span><span class="tag">Recovery</span>
+          <span class="tag">Settlement</span><span class="tag">Criminal Complaint</span><span class="tag">Appeals</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <h3>Intellectual Property</h3>
+        <p>Protect your brand, inventions, and creative works through trademark registration, patent filing, copyright protection, and IP infringement proceedings.</p>
+        <div class="service-subcats">
+          <span class="tag">Trademark</span><span class="tag">Patent</span><span class="tag">Copyright</span>
+          <span class="tag">Trade Secret</span><span class="tag">IP Infringement</span><span class="tag">Licensing</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+        <h3>NRI Legal Services</h3>
+        <p>Specialized legal services for Non-Resident Indians — property management, Power of Attorney, OCI card issues, succession certificates, and NRI banking disputes.</p>
+        <div class="service-subcats">
+          <span class="tag">Property Management</span><span class="tag">Power of Attorney</span><span class="tag">OCI Issues</span>
+          <span class="tag">Succession</span><span class="tag">NRI Banking</span><span class="tag">Repatriation</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>Labour & Employment</h3>
+        <p>Defense of employee rights in wrongful termination, PF/ESI disputes, sexual harassment at workplace (POSH), gratuity claims, and labour court proceedings.</p>
+        <div class="service-subcats">
+          <span class="tag">Wrongful Termination</span><span class="tag">PF Disputes</span><span class="tag">POSH</span>
+          <span class="tag">Labour Court</span><span class="tag">Gratuity</span><span class="tag">Contract Workers</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <h3>GST & Tax Law</h3>
+        <p>Navigate complex GST and income tax matters with expert counsel — registration, notices, SCN replies, appeals before GST Appellate Authority and Income Tax Tribunal.</p>
+        <div class="service-subcats">
+          <span class="tag">GST Registration</span><span class="tag">SCN Reply</span><span class="tag">GST Appeals</span>
+          <span class="tag">Income Tax</span><span class="tag">TDS Matters</span><span class="tag">Tax Planning</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+      <div class="service-big-card reveal">
+        <div class="service-big-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>PIL & High Court</h3>
+        <p>Constitutional and public interest litigation, writ petitions for fundamental rights, High Court appeals across all jurisdictions, and Supreme Court matters.</p>
+        <div class="service-subcats">
+          <span class="tag">PIL Filing</span><span class="tag">Writ Petitions</span><span class="tag">High Court</span>
+          <span class="tag">Supreme Court</span><span class="tag">Arbitration</span><span class="tag">Mediation</span>
+        </div>
+        <a href="consult.html" class="btn btn-gold btn-sm">Get Legal Help</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div style="background:linear-gradient(135deg,var(--gold),var(--gold-dark));padding:4rem 0;text-align:center">
+  <div class="container">
+    <h2 style="color:var(--bg-primary);font-size:2rem;margin-bottom:1rem">Not Sure Which Service You Need?</h2>
+    <p style="color:rgba(13,15,26,0.75);margin-bottom:2rem">Speak to our team and we'll guide you to the right legal expert for your matter.</p>
+    <a href="consult.html" class="btn" style="background:var(--bg-primary);color:var(--gold);border:2px solid var(--bg-primary)">Book Free Initial Consultation</a>
+    <a href="qa.html" class="btn btn-outline" style="margin-left:1rem;border-color:var(--bg-primary);color:var(--bg-primary)">Ask a Free Question</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2024 LexCounsel India. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="index.html">Home</a><a href="lawyers.html">Advocates</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

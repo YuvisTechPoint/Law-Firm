@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up — LexCounsel India</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg-primary); }
+    .auth-wrapper { width: 100%; max-width: 450px; padding: 2rem; }
+    .auth-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; }
+    .auth-header { text-align: center; margin-bottom: 2rem; }
+    .auth-header .logo-text { font-size: 1.8rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .auth-header p { color: var(--muted); font-size: 0.9rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--text); }
+    .form-control { width: 100%; padding: 0.75rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text); font-size: 0.95rem; }
+    .form-control:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,168,76,0.1); }
+    .btn-submit { width: 100%; padding: 0.85rem; background: var(--gold); color: var(--bg-primary); border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem; }
+    .btn-submit:hover { background: #d4a943; transform: translateY(-2px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .status-message { padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem; font-size: 0.9rem; text-align: center; display: none; }
+    .status-message.success { background: rgba(46,204,113,0.1); color: var(--success); border: 1px solid var(--success); }
+    .status-message.error { background: rgba(231,76,60,0.1); color: #e74c3c; border: 1px solid #e74c3c; }
+    .auth-footer { text-align: center; color: var(--muted); font-size: 0.85rem; }
+    .auth-footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .auth-footer a:hover { text-decoration: underline; }
+    .password-hint { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
+    @media (max-width: 480px) { .auth-card { padding: 1.5rem; } .auth-header .logo-text { font-size: 1.5rem; } }
+  </style>
+</head>
+<body>
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo-text">LexCounsel India</div>
+      <p>Create Your Legal Account</p>
+    </div>
+
+    <div id="status-message" class="status-message"></div>
+
+    <form id="signup-form">
+      <div class="form-group">
+        <label for="fullName">Full Name *</label>
+        <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password *</label>
+        <input type="password" id="password" class="form-control" placeholder="••••••••" required minlength="6">
+        <div class="password-hint">Minimum 6 characters</div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password *</label>
+        <input type="password" id="confirm-password" class="form-control" placeholder="••••••••" required>
+      </div>
+
+      <div class="form-group" style="display: flex; align-items: flex-start; gap: 10px;">
+        <input type="checkbox" id="terms" required style="margin-top: 5px; width: auto; accent-color: var(--gold);">
+        <label for="terms" style="margin: 0; font-size: 0.8rem;">I agree to the Terms of Service and Privacy Policy</label>
+      </div>
+
+      <button type="submit" class="btn-submit">Create Account</button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account? <a href="login.html">Sign In Here</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const signupForm = document.getElementById('signup-form');
+  const statusMsg = document.getElementById('status-message');
+
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fullName = document.getElementById('fullName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    // Validation
+    if (!fullName || !email || !password) {
+      showStatus('Please fill in all fields', 'error');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showStatus('Passwords do not match', 'error');
+      return;
+    }
+
+    if (password.length < 6) {
+      showStatus('Password must be at least 6 characters', 'error');
+      return;
+    }
+
+    // Disable button and show loading
+    const submitBtn = signupForm.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Creating Account...';
+
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showStatus('✓ Account created successfully! Check your email. Redirecting to login...', 'success');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+      } else {
+        showStatus(data.message || 'Signup failed', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    } catch (error) {
+      console.error('Signup Error:', error);
+      showStatus('Server error. Please try again later.', 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+
+  function showStatus(message, type) {
+    statusMsg.textContent = message;
+    statusMsg.className = 'status-message ' + type;
+    statusMsg.style.display = 'block';
+  }
+</script>
+</body>
+</html>

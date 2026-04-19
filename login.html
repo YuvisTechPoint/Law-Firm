@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Cart — LexCounsel India</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg-primary); }
+    .auth-wrapper { width: 100%; max-width: 450px; padding: 2rem; }
+    .auth-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; }
+    .auth-header { text-align: center; margin-bottom: 2rem; }
+    .auth-header .logo-text { font-size: 1.8rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .auth-header p { color: var(--muted); font-size: 0.9rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 500; color: var(--text); }
+    .form-control { width: 100%; padding: 0.75rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text); font-size: 0.95rem; }
+    .form-control:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,168,76,0.1); }
+    .btn-submit { width: 100%; padding: 0.85rem; background: var(--gold); color: var(--bg-primary); border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-bottom: 1rem; }
+    .btn-submit:hover { background: #d4a943; transform: translateY(-2px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .status-message { padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem; font-size: 0.9rem; text-align: center; display: none; }
+    .status-message.success { background: rgba(46,204,113,0.1); color: var(--success); border: 1px solid var(--success); }
+    .status-message.error { background: rgba(231,76,60,0.1); color: #e74c3c; border: 1px solid #e74c3c; }
+    .auth-footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 1.5rem; }
+    .auth-footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .auth-footer a:hover { text-decoration: underline; }
+    .divider { text-align: center; margin: 1.5rem 0; color: var(--muted); font-size: 0.8rem; }
+    .divider::before { content: ""; display: inline-block; width: 45%; height: 1px; background: var(--border); vertical-align: middle; margin-right: 0.5rem; }
+    .divider::after { content: ""; display: inline-block; width: 45%; height: 1px; background: var(--border); vertical-align: middle; margin-left: 0.5rem; }
+    
+    .dashboard-container { display: none; }
+    .dashboard-header { background: var(--bg-secondary); padding: 2rem; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .dashboard-header h1 { margin: 0 0 0.5rem 0; }
+    .dashboard-header p { color: var(--muted); margin: 0; }
+    .cart-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border); }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-total { margin-top: 1rem; text-align: right; font-weight: 700; font-size: 1.2rem; color: var(--gold); }
+    .action-buttons { display: flex; gap: 1rem; margin-top: 2rem; }
+    .btn-action { flex: 1; padding: 0.85rem; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .btn-checkout { background: var(--gold); color: var(--bg-primary); }
+    .btn-checkout:hover { background: #d4a943; }
+    .btn-logout { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+    .btn-logout:hover { background: rgba(201,168,76,0.1); }
+    @media (max-width: 480px) { .auth-card { padding: 1.5rem; } .auth-header .logo-text { font-size: 1.5rem; } .action-buttons { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<!-- Login Section -->
+<div class="auth-wrapper" id="login-section">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo-text">LexCounsel India</div>
+      <p>Welcome Back</p>
+    </div>
+
+    <div id="status-message" class="status-message"></div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn-submit">Sign In</button>
+    </form>
+
+    <div class="divider">New to LexCounsel?</div>
+
+    <div class="auth-footer">
+      <a href="signup.html" style="display: inline-block; padding: 0.7rem 2rem; border: 1px solid var(--gold); border-radius: var(--radius-md); text-decoration: none;">Create an Account</a>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard Section -->
+<div class="dashboard-container" id="dashboard-section">
+  <div style="max-width: 1000px; width: 100%; padding: 2rem;">
+    <nav class="navbar" style="margin-bottom: 2rem;">
+      <div class="container" style="max-width: 100%;">
+        <a href="index.html" class="nav-logo">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 3L4 10v8c0 7 6 13.5 14 16 8-2.5 14-9 14-16v-8L18 3z" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="nav-logo-text">LexCounsel India</span>
+        </a>
+        <div style="display: flex; gap: 1rem;">
+          <span id="user-email-display" style="color: var(--gold); font-weight: 600;"></span>
+          <a href="#" onclick="logout(); return false;" style="color: var(--muted); text-decoration: none; cursor: pointer;">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="dashboard-header">
+      <h1 id="user-greeting">Welcome, User</h1>
+      <p>Manage your legal consultations and payments</p>
+    </div>
+
+    <div class="cart-section">
+      <h2>Your Consultation Cart</h2>
+      <div id="cart-list">
+        <div class="cart-item">
+          <div>
+            <strong>Property Title Verification</strong><br>
+            <small style="color:var(--muted)">Assigned: Adv. Subhashis Paul</small>
+          </div>
+          <div style="color:var(--gold); font-weight: 600;">₹1,499</div>
+        </div>
+        <div class="cart-item">
+          <div>
+            <strong>Standard Consultation</strong><br>
+            <small style="color:var(--muted)">30-min Video Call</small>
+          </div>
+          <div style="color:var(--gold); font-weight: 600;">₹499</div>
+        </div>
+      </div>
+      <div class="cart-total">Total: ₹1,998</div>
+
+      <div class="action-buttons">
+        <button class="btn-action btn-checkout" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        <button class="btn-action btn-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const loginForm = document.getElementById('login-form');
+  const loginSection = document.getElementById('login-section');
+  const dashboardSection = document.getElementById('dashboard-section');
+  const statusMsg = document.getElementById('status-message');
+
+  // Check if user is already logged in
+  window.addEventListener('DOMContentLoaded', () => {
+    const userEmail = localStorage.getItem('userEmail');
+    const userToken = localStorage.getItem('userToken');
+    
+    if (userEmail && userToken) {
+      validateSession(userEmail, userToken);
+    }
+  });
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!email || !password) {
+      showStatus('Please enter email and password', 'error');
+      return;
+    }
+
+    const submitBtn = loginForm.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing In...';
+
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem('userEmail', data.user.email);
+        localStorage.setItem('userFullName', data.user.fullName);
+        localStorage.setItem('userToken', data.token);
+
+        showStatus('✓ Login successful! Loading dashboard...', 'success');
+        
+        setTimeout(() => {
+          showDashboard(data.user);
+        }, 1000);
+      } else {
+        showStatus(data.message || 'Login failed', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    } catch (error) {
+      console.error('Login Error:', error);
+      showStatus('Server error. Make sure the auth server is running on localhost:3000', 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+
+  function validateSession(email, token) {
+    fetch('http://localhost:3000/api/auth/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, token })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        showDashboard(data.user);
+      } else {
+        localStorage.clear();
+      }
+    })
+    .catch(() => localStorage.clear());
+  }
+
+  function showDashboard(user) {
+    loginSection.style.display = 'none';
+    dashboardSection.style.display = 'block';
+    
+    document.getElementById('user-greeting').textContent = `Welcome, ${user.fullName}!`;
+    document.getElementById('user-email-display').textContent = user.email;
+  }
+
+  function showStatus(message, type) {
+    statusMsg.textContent = message;
+    statusMsg.className = 'status-message ' + type;
+    statusMsg.style.display = 'block';
+  }
+
+  function logout() {
+    localStorage.clear();
+    window.location.reload();
+  }
+
+  function proceedToCheckout() {
+    window.location.href = 'consult.html';
+  }
+</script>
+</body>
+</html>

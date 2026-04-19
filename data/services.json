@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "Family & Matrimonial Law",
+    "icon": "family",
+    "description": "Divorce, custody, maintenance, adoption, domestic violence protection, matrimonial disputes.",
+    "subcategories": ["Divorce Proceedings", "Child Custody", "Maintenance & Alimony", "Domestic Violence", "Adoption", "Matrimonial Property"],
+    "color": "#9B59B6"
+  },
+  {
+    "id": 2,
+    "title": "Criminal Defense",
+    "icon": "shield",
+    "description": "Bail applications, anticipatory bail, trial defense, FIR quashing, criminal appeals.",
+    "subcategories": ["Bail Applications", "Anticipatory Bail", "Trial Defense", "FIR Quashing", "Criminal Appeals", "NDPS Cases"],
+    "color": "#E74C3C"
+  },
+  {
+    "id": 3,
+    "title": "Property & Real Estate",
+    "icon": "home",
+    "description": "Property disputes, title clearance, RERA complaints, landlord-tenant matters, encroachment.",
+    "subcategories": ["Property Disputes", "Title Clearance", "RERA Complaints", "Landlord-Tenant", "Sale Deed Drafting", "Mutation"],
+    "color": "#27AE60"
+  },
+  {
+    "id": 4,
+    "title": "Corporate & Business Law",
+    "icon": "briefcase",
+    "description": "Company formation, mergers & acquisitions, SEBI compliance, contract drafting, commercial disputes.",
+    "subcategories": ["Company Registration", "LLP Formation", "Contract Drafting", "M&A", "SEBI Compliance", "Commercial Disputes"],
+    "color": "#2980B9"
+  },
+  {
+    "id": 5,
+    "title": "Consumer Protection",
+    "icon": "users",
+    "description": "Consumer forum complaints, defective goods, service deficiency, unfair trade practices.",
+    "subcategories": ["Consumer Forum", "Product Liability", "Service Deficiency", "E-commerce Disputes", "Insurance Claims", "Banking Disputes"],
+    "color": "#E67E22"
+  },
+  {
+    "id": 6,
+    "title": "Cyber Law",
+    "icon": "monitor",
+    "description": "Cybercrime complaints, online fraud, data breach, defamation, IT Act offenses.",
+    "subcategories": ["Online Fraud", "Cyberbullying", "Data Breach", "Online Defamation", "Hacking", "Identity Theft"],
+    "color": "#16A085"
+  },
+  {
+    "id": 7,
+    "title": "Cheque Bounce / NI Act",
+    "icon": "file-text",
+    "description": "Section 138 NI Act cases, legal notices, compounding, recovery of dues.",
+    "subcategories": ["Legal Notice", "Section 138 Cases", "Compromise & Settlement", "Recovery of Amount", "Criminal Complaint", "Appeals"],
+    "color": "#8E44AD"
+  },
+  {
+    "id": 8,
+    "title": "Labour & Employment",
+    "icon": "users",
+    "description": "Wrongful termination, PF/ESI disputes, sexual harassment, labour court matters.",
+    "subcategories": ["Wrongful Termination", "PF Disputes", "ESI Matters", "Sexual Harassment (POSH)", "Labour Court", "Gratuity"],
+    "color": "#C0392B"
+  },
+  {
+    "id": 9,
+    "title": "GST & Tax Law",
+    "icon": "percent",
+    "description": "GST registration, notices, appeals, income tax disputes, tax planning.",
+    "subcategories": ["GST Registration", "GST Notices", "GST Appeals", "Income Tax Disputes", "TDS Matters", "Tax Planning"],
+    "color": "#D35400"
+  },
+  {
+    "id": 10,
+    "title": "Intellectual Property",
+    "icon": "award",
+    "description": "Trademark, patent, copyright registration and infringement cases.",
+    "subcategories": ["Trademark Registration", "Patent Filing", "Copyright", "Trade Secret", "IP Infringement", "Licensing"],
+    "color": "#1ABC9C"
+  },
+  {
+    "id": 11,
+    "title": "NRI Legal Services",
+    "icon": "globe",
+    "description": "Property management, Power of Attorney, OCI matters, NRI banking disputes.",
+    "subcategories": ["Property Management", "Power of Attorney", "OCI Card Issues", "Repatriation", "NRI Banking", "Succession Certificate"],
+    "color": "#3498DB"
+  },
+  {
+    "id": 12,
+    "title": "PIL & High Court",
+    "icon": "scale",
+    "description": "Public Interest Litigation, constitutional matters, writ petitions, fundamental rights.",
+    "subcategories": ["Writ Petitions", "PIL Filing", "Constitutional Matters", "High Court Appeals", "Arbitration", "Mediation"],
+    "color": "#C9A84C"
+  }
+]

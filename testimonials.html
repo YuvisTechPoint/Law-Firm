@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Testimonials — LexCounsel India</title>
+  <meta name="description" content="Read what clients say about LexCounsel India. 4.9★ Google rating with 147+ verified reviews.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <style>
+    .testimonials-masonry {
+      columns: 3;
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      break-inside: avoid;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.1);
+    }
+    .testimonial-card.featured {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.03);
+    }
+    .t-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .t-meta .t-name { font-weight: 600; font-size: 0.95rem; color: var(--white); }
+    .t-meta .t-date { font-size: 0.75rem; color: var(--muted); }
+    .t-meta .t-service { font-size: 0.75rem; color: var(--gold); }
+    .t-text { font-size: 0.87rem; color: var(--muted); line-height: 1.7; margin-top: 0.75rem; }
+    .t-quote { font-size: 2rem; color: var(--gold); opacity: 0.3; line-height: 0.5; float: left; margin-right: 6px; }
+    @media (max-width:1024px) { .testimonials-masonry { columns: 2; } }
+    @media (max-width: 600px) { .testimonials-masonry { columns: 1; } }
+  </style>
+</head>
+<body>
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <a href="mailto:info@lexcounsel.in">✉ info@lexcounsel.in</a>
+      <a href="tel:+919800000000" class="hide-mobile">📞 +91 98000 00000</a>
+    </div>
+    <div class="topbar-right"><a href="consult.html">Quick Consultation →</a></div>
+  </div>
+</div>
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 36 36" fill="none"><path d="M18 3L4 10v8c0 7 6 13.5 14 16 8-2.5 14-9 14-16v-8L18 3z" stroke="currentColor" stroke-width="1.5"/><line x1="18" y1="8" x2="18" y2="28" stroke="currentColor" stroke-width="1.5"/><line x1="9" y1="17" x2="27" y2="17" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span class="nav-logo-text">LexCounsel India</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="services.html">Services</a>
+      <a href="lawyers.html">Advocates</a><a href="qa.html">Legal Q&A</a>
+      <a href="testimonials.html" class="active">Reviews</a><a href="about.html">About</a>
+      <a href="consult.html" class="btn btn-outline btn-nav">Free Legal Advice</a>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="lawyers.html">Advocates</a><a href="qa.html">Q&A</a>
+  <a href="about.html">About</a><a href="contact.html">Contact</a>
+  <a href="consult.html" class="btn btn-gold" style="margin-top:1rem">Book Consultation</a>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="label">Client Stories</span>
+    <h1>Reviews & Testimonials</h1>
+    <p>Real stories from real clients across India who trusted us with their legal matters</p>
+  </div>
+</div>
+
+<!-- Rating Banner -->
+<div style="background:var(--bg-secondary);border-bottom:1px solid var(--border);padding:2rem 0">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;text-align:center">
+      <div style="display:flex;align-items:center;gap:1.5rem">
+        <div>
+          <div style="font-family:var(--font-display);font-size:4rem;font-weight:900;color:var(--gold);line-height:1">4.9</div>
+          <div class="stars" style="font-size:1.3rem">★★★★★</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:4px">Overall Rating</div>
+        </div>
+        <div style="text-align:left">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:0.75rem;color:var(--muted);width:20px">5★</span><div style="flex:1;height:6px;background:rgba(201,168,76,0.15);border-radius:3px"><div style="width:92%;height:100%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:0.75rem;color:var(--muted)">92%</span></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:0.75rem;color:var(--muted);width:20px">4★</span><div style="flex:1;height:6px;background:rgba(201,168,76,0.15);border-radius:3px"><div style="width:6%;height:100%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:0.75rem;color:var(--muted)">6%</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><span style="font-size:0.75rem;color:var(--muted);width:20px">3★</span><div style="flex:1;height:6px;background:rgba(201,168,76,0.15);border-radius:3px"><div style="width:2%;height:100%;background:var(--gold);border-radius:3px"></div></div><span style="font-size:0.75rem;color:var(--muted)">2%</span></div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--white)">147+</div>
+        <div style="font-size:0.82rem;color:var(--muted)">Verified Google Reviews</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--white)">500+</div>
+        <div style="font-size:0.82rem;color:var(--muted)">Cases Successfully Handled</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="testimonials-masonry">
+      <div class="testimonial-card featured reveal">
+        <div class="t-header"><div class="avatar avatar-sm">PS</div><div class="t-meta"><div class="t-name">Priya Sharma</div><div class="t-service">Property Dispute</div><div class="t-date">2 weeks ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>Exceptional legal guidance at every step. The team's professionalism and dedication to our property case was truly outstanding. They resolved a 5-year old dispute in just 8 months. Cannot recommend them enough!</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="t-header"><div class="avatar avatar-sm">AM</div><div class="t-meta"><div class="t-name">Arjun Mehta</div><div class="t-service">Property Law</div><div class="t-date">1 month ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>Got my complex property title dispute resolved quickly. The advocates were extremely knowledgeable and kept me informed throughout. Very reasonable fees for the quality of service.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="t-header"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#9B59B6,#C39BD3)">SR</div><div class="t-meta"><div class="t-name">Sunita Rao</div><div class="t-service">Family Law / Divorce</div><div class="t-date">3 weeks ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>Adv. Priya Sharma handled my divorce case with the utmost sensitivity. During one of the most difficult periods of my life, having a compassionate yet strong legal advocate made all the difference. Highly recommend!</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="t-header"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#2980B9,#85C1E9)">VN</div><div class="t-meta"><div class="t-name">Vikram Nair</div><div class="t-service">Corporate Law</div><div class="t-date">2 months ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>Best corporate law firm! They incorporated our startup as a Private Limited Company perfectly, drafted a watertight shareholder agreement, and even helped us with our first funding round legal review. Worth every rupee.</p>
+      </div>
+      <div class="testimonial-card featured reveal">
+        <div class="t-header"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#16A085,#76D7C4)">AB</div><div class="t-meta"><div class="t-name">Ananya Bose</div><div class="t-service">Cyber Crime</div><div class="t-date">1 month ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>The cyber crime team is exceptional! ₹80,000 was fraudulently taken from my account. Within 48 hours of filing my complaint through them, the police registered an FIR and within 2 weeks my money was recovered. True heroes!</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="t-header"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#E67E22,#F0B27A)">RK</div><div class="t-meta"><div class="t-name">Rohit Kapoor</div><div class="t-service">RERA / Consumer</div><div class="t-date">6 weeks ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>Builder delayed my flat by 2 years. LexCounsel filed a RERA complaint and within 4 months I received full refund with 10.85% interest. Their expertise in RERA matters is unmatched in the city.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="t-header"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#E74C3C,#EC7063)">MD</div><div class="t-meta"><div class="t-name">Mohan Das</div><div class="t-service">Criminal Defense</div><div class="t-date">5 weeks ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>When my son was falsely accused in a criminal case, we turned to Adv. Paul. He got anticipatory bail within 48 hours and ultimately got the FIR quashed. Brilliant lawyer, total fighter in court.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="t-header"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#27AE60,#82E0AA)">NK</div><div class="t-meta"><div class="t-name">Neha Kulkarni</div><div class="t-service">Cheque Bounce</div><div class="t-date">7 weeks ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>₹3.5 lakh cheque bounced by a business partner. The team sent a perfect legal notice and within the stipulated time filed the Section 138 complaint. Case resolved in just 6 months with full payment received.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="t-header"><div class="avatar avatar-sm" style="background:linear-gradient(135deg,#8E44AD,#C39BD3)">RL</div><div class="t-meta"><div class="t-name">Rahul Lal (NRI)</div><div class="t-service">NRI Legal Services</div><div class="t-date">3 months ago · Google</div></div></div>
+        <div class="stars">★★★★★</div>
+        <p class="t-text"><span class="t-quote">"</span>As an NRI in Canada, I needed someone trustworthy to handle my inherited property dispute in Kolkata. LexCounsel managed everything remotely — Power of Attorney, court hearings, property transfer. Completely seamless experience.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem">
+      <a href="consult.html" class="btn btn-gold btn-lg">Join Our Satisfied Clients</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2024 LexCounsel India. All reviews are from verified Google clients.</p>
+      <div class="footer-bottom-links"><a href="index.html">Home</a><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+</footer>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+<script src="js/plugins.js"></script><script src="js/main.js"></script>
+</body>
+</html>

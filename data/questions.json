@@ -1,0 +1,105 @@
+[
+  {
+    "id": 1,
+    "name": "Rahul S.",
+    "email": "rahul@example.com",
+    "category": "Property",
+    "title": "Can landlord evict without notice?",
+    "body": "My landlord is threatening eviction without giving any notice period. We have a verbal agreement only and I have been staying for 3 years. What are my rights under Indian law?",
+    "date": "2024-03-15",
+    "city": "Kolkata",
+    "status": "answered",
+    "helpful": 24,
+    "reply": {
+      "advocate": "Adv. Subhashis Paul",
+      "designation": "Senior Advocate",
+      "text": "Under the Transfer of Property Act and respective state Rent Control Acts, a landlord cannot evict a tenant without serving proper notice. For verbal agreements, the notice period is typically 15 days for month-to-month tenancies. You should first send a legal notice through an advocate and if the situation escalates, file an application before the Rent Controller. I strongly advise formalizing your tenancy agreement immediately.",
+      "date": "2024-03-16"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Sunita M.",
+    "email": "sunita@example.com",
+    "category": "Family",
+    "title": "Divorce process if husband is abroad?",
+    "body": "My husband has been working in the UAE for 2 years and we want to file for mutual divorce. Can this be done if he cannot return to India? What is the procedure?",
+    "date": "2024-03-18",
+    "city": "Mumbai",
+    "status": "answered",
+    "helpful": 31,
+    "reply": {
+      "advocate": "Adv. Priya Sharma",
+      "designation": "Family Law Specialist",
+      "text": "Yes, mutual consent divorce is possible even if one spouse is abroad. Your husband can grant a Special Power of Attorney (SPA) to a trusted person in India to appear on his behalf. The SPA must be notarized and attested by the Indian Embassy/Consulate in the UAE. The divorce petition under Section 13B of the Hindu Marriage Act (if Hindu) can then be filed at the Family Court in India. The process typically takes 6-18 months including the mandatory 6-month cooling-off period.",
+      "date": "2024-03-19"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Amar T.",
+    "email": "amar@example.com",
+    "category": "Criminal",
+    "title": "Anticipatory bail for cheque bounce case?",
+    "body": "I have received a legal notice for cheque bounce. The cheque was for a loan I took from a friend. I am worried about arrest. Can I get anticipatory bail?",
+    "date": "2024-03-20",
+    "city": "Delhi",
+    "status": "answered",
+    "helpful": 18,
+    "reply": {
+      "advocate": "Adv. Subhashis Paul",
+      "designation": "Senior Advocate",
+      "text": "Cheque bounce under Section 138 of the Negotiable Instruments Act is a criminal offense but it is compoundable in nature. The typical process is: you receive a legal notice, you have 15 days to make the payment from the date of notice, if you don't pay, a complaint is filed. Anticipatory bail is generally not required for cheque bounce cases as they are summons-based, not warrant-based initially. However, you should respond to the legal notice immediately with a detailed explanation or negotiate settlement. I suggest you consult an advocate immediately.",
+      "date": "2024-03-21"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Ritu K.",
+    "email": "ritu@example.com",
+    "category": "Consumer",
+    "title": "RERA complaint against builder for delay?",
+    "body": "My builder promised possession of my flat by December 2022 but till now (2024) the project is not complete. I have paid 80% of the amount. What are my options?",
+    "date": "2024-03-22",
+    "city": "Pune",
+    "status": "answered",
+    "helpful": 42,
+    "reply": {
+      "advocate": "Adv. Lakshmi Nair",
+      "designation": "Property Law Specialist",
+      "text": "You have strong remedies under RERA (Real Estate Regulation and Development Act, 2016). You can file a complaint before the RERA Authority of Maharashtra seeking: (1) Refund of full amount with 10.85% interest from the date of payment, OR (2) Compensation for delay at the same interest rate while continuing with the project. Additionally, you may also prefer a Consumer Forum complaint. I strongly recommend filing before RERA as it has faster disposal and mandatory 60-day resolution timelines.",
+      "date": "2024-03-23"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Dev P.",
+    "email": "dev@example.com",
+    "category": "Corporate",
+    "title": "How to register a startup as LLP in India?",
+    "body": "I want to register my tech startup as an LLP. I have a co-founder. What documents are needed and how long does the process take?",
+    "date": "2024-03-25",
+    "city": "Bangalore",
+    "status": "pending",
+    "helpful": 9,
+    "reply": null
+  },
+  {
+    "id": 6,
+    "name": "Fatima A.",
+    "email": "fatima@example.com",
+    "category": "Cyber",
+    "title": "Online fraud — someone withdrew money from my account",
+    "body": "Someone called pretending to be a bank executive and I gave my OTP by mistake. ₹45,000 was debited from my account. What should I do urgently?",
+    "date": "2024-03-26",
+    "city": "Hyderabad",
+    "status": "answered",
+    "helpful": 56,
+    "reply": {
+      "advocate": "Adv. Meera Iyer",
+      "designation": "Cyber Law Expert",
+      "text": "Act immediately: (1) Call your bank's 24/7 helpline and freeze/block your account. Report the unauthorized transaction within 24 hours. (2) File a complaint at cybercrime.gov.in — the National Cyber Crime Reporting Portal. (3) File an FIR at your nearest police station under Sections 419, 420 IPC and Section 66C & 66D of the IT Act. (4) Email your bank's fraud department with complete details. If reported within 24 hours, RBI guidelines mandate the bank to refund the amount. Keep all communication documentation safe.",
+      "date": "2024-03-26"
+    }
+  }
+]

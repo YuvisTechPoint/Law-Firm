@@ -1,0 +1,299 @@
+/* ============================================
+   CONSULT PAGE CSS
+   ============================================ */
+
+.consult-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+/* Step Indicators */
+.steps-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.step-dot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.step-dot-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--bg-card);
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.step-dot.active .step-dot-circle {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201,168,76,0.1);
+}
+
+.step-dot.completed .step-dot-circle {
+  border-color: var(--success);
+  color: var(--bg-primary);
+  background: var(--success);
+}
+
+.step-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.step-dot.active .step-label {
+  color: var(--gold);
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 var(--space-sm);
+}
+
+/* Plan Cards */
+.plan-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.plan-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.plan-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 40%);
+  transform: scale(0);
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.plan-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-gold);
+}
+
+.plan-card.selected {
+  border-color: var(--gold);
+  background: rgba(212, 175, 55, 0.05);
+  box-shadow: var(--shadow-gold-lg);
+}
+
+.plan-card.selected::before {
+  transform: scale(1);
+}
+
+.plan-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 22px;
+  height: 22px;
+  background: var(--gold);
+  color: var(--bg-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.plan-card .plan-name {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.plan-card .plan-price {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.plan-card .plan-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.plan-recommended {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--bg-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Step panels */
+.step-panel {
+  display: none;
+}
+
+.step-panel.active {
+  display: block;
+  animation: fadeInUp 0.3s ease;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+/* Payment Summary Card */
+.payment-summary {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.payment-summary h4 {
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(201,168,76,0.05);
+}
+
+.payment-row.total {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  border-bottom: none;
+}
+
+.payment-row .amount {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Sidebar Info */
+.consult-sidebar h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.consult-info-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.consult-info-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.consult-info-item h5 {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  font-family: var(--font-body);
+}
+
+.consult-info-item p {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Confirmation Screen */
+.confirmation-screen {
+  display: none;
+  text-align: center;
+  padding: var(--space-xl) 0;
+}
+
+.confirmation-screen.active {
+  display: block;
+  animation: scaleIn 0.5s ease;
+}
+
+.confirmation-icon {
+  width: 100px;
+  height: 100px;
+  background: rgba(46,204,113,0.1);
+  border: 2px solid var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  animation: goldPulse 2s ease-in-out 3;
+}
+
+.booking-id {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin: var(--space-sm) 0;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .consult-layout { grid-template-columns: 1fr; }
+  .plan-cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .plan-cards { grid-template-columns: 1fr; }
+  .form-grid-2 { grid-template-columns: 1fr; }
+}

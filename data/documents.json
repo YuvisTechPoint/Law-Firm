@@ -1,0 +1,230 @@
+[
+  {
+    "id": 1,
+    "category": "Divorce & Matrimonial",
+    "icon": "heart-broken",
+    "description": "Documents required for filing divorce petition or matrimonial disputes",
+    "documents": [
+      "Marriage Certificate (original + certified copy)",
+      "Aadhaar Card of both parties",
+      "PAN Card of both parties",
+      "Address Proof (both parties — Voter ID / Passport / Electricity Bill)",
+      "Passport-size photographs (both parties — 4 each)",
+      "Income Proof (salary slips / ITR — last 3 years)",
+      "Bank Account Statements (last 6 months)",
+      "Children's birth certificates (if applicable)",
+      "Property documents (if matrimonial property dispute)",
+      "Any prior court orders or injunctions",
+      "Evidence of cruelty/adultery (if contested divorce)",
+      "Educational qualification certificates"
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Property Dispute",
+    "icon": "home",
+    "description": "Documents needed for property disputes, title clearance and related matters",
+    "documents": [
+      "Sale Deed / Gift Deed / Will (original + copies)",
+      "Title Documents (chain of title for 30 years)",
+      "Aadhaar Card of all parties",
+      "Encumbrance Certificate (from Sub-Registrar Office)",
+      "Mutation Certificate / Khata Certificate",
+      "Latest Property Tax Receipts",
+      "Survey / Sketch of the property (from surveyor)",
+      "NOC from Housing Society (if apartment)",
+      "Building Plan Approval",
+      "Physical possession proof (utility bills, photos)",
+      "Any prior court orders regarding the property",
+      "Legal Heir Certificate (in case of inheritance disputes)"
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Cheque Bounce / NI Act",
+    "icon": "credit-card",
+    "description": "Documents for Section 138 NI Act cheque bounce cases",
+    "documents": [
+      "Original Dishonoured Cheque",
+      "Bank's cheque return memo",
+      "Bank Statement showing cheque presented",
+      "Legal Notice sent (copy + postal receipts)",
+      "Aadhaar Card and PAN Card",
+      "Proof of loan / transaction (agreement, invoice)",
+      "Correspondences with the accused (WhatsApp, email)",
+      "Any acknowledgment of debt by accused",
+      "Bank account details (complainant)",
+      "Earlier payment receipts (if partial payments made)"
+    ]
+  },
+  {
+    "id": 4,
+    "category": "Criminal Matter / Bail",
+    "icon": "shield",
+    "description": "Documents required for bail applications and criminal proceedings",
+    "documents": [
+      "FIR Copy (if already registered)",
+      "Aadhaar Card / Identity Proof of accused",
+      "Permanent Address Proof",
+      "Passport (for passport impoundment cases)",
+      "Medical documents (if injury / health grounds)",
+      "Surety documents (property papers / income proof of surety)",
+      "Character references / certificates",
+      "Employment proof (if claiming steady employment)",
+      "Prior criminal record (if any — to be disclosed)",
+      "Bank statements showing financial stability",
+      "Any case documents, chargesheets received"
+    ]
+  },
+  {
+    "id": 5,
+    "category": "Consumer Complaint",
+    "icon": "shopping-bag",
+    "description": "Documents for filing consumer forum complaints",
+    "documents": [
+      "Purchase receipt / Invoice / Bill",
+      "Warranty / Guarantee Card",
+      "Defective product photos / videos",
+      "Complaint letters sent to company (copies)",
+      "Company's response / rejection letter",
+      "Aadhaar Card of complainant",
+      "Bank statement showing payment",
+      "Expert report / inspection report (if available)",
+      "Medical bills (if personal injury involved)",
+      "Proof of loss / damage suffered"
+    ]
+  },
+  {
+    "id": 6,
+    "category": "Employment / Labour",
+    "icon": "briefcase",
+    "description": "Documents for wrongful termination and labour disputes",
+    "documents": [
+      "Employment Contract / Appointment Letter",
+      "Resignation Letter / Termination Letter",
+      "Salary Slips (last 6-12 months)",
+      "Form 16 / Income Tax Proof",
+      "PF Account Statement (EPFO portal)",
+      "ID Card / Access Card of the company",
+      "Emails / Communications regarding termination",
+      "Performance review reports",
+      "Gratuity calculation (if applicable)",
+      "Any settlement agreements or Full & Final documents",
+      "POSH Committee Report (for harassment cases)",
+      "Medical certificates (if medical leave related)"
+    ]
+  },
+  {
+    "id": 7,
+    "category": "Cyber Crime",
+    "icon": "monitor",
+    "description": "Documents for online fraud and cybercrime complaints",
+    "documents": [
+      "Screenshots of fraudulent communications (WhatsApp, email, SMS)",
+      "Bank Statement showing unauthorized transactions",
+      "Transaction receipts / Reference numbers",
+      "FIR or acknowledgment from Cybercrime Portal",
+      "Aadhaar Card / Identity Proof",
+      "Device details (IMEI number, IP address if known)",
+      "Phone call logs / recordings (if available)",
+      "Website URLs / Social media profiles of fraudsters",
+      "Email headers of phishing emails",
+      "Bank's complaint acknowledgment letter"
+    ]
+  },
+  {
+    "id": 8,
+    "category": "Company / Startup Registration",
+    "icon": "building",
+    "description": "Documents for company, LLP, or startup registration",
+    "documents": [
+      "PAN Card of all Directors / Partners",
+      "Aadhaar Card of all Directors / Partners",
+      "Passport-size photographs",
+      "Address Proof — Electricity Bill / Latest Bank Statement",
+      "Registered Office Address Proof",
+      "NOC from property owner (for office address)",
+      "Memorandum of Agreement between founders",
+      "Digital Signature Certificate (DSC) — if not available",
+      "Director Identification Number (DIN) application",
+      "Proposed company name alternatives",
+      "Details of Share Capital (if Private Limited)"
+    ]
+  },
+  {
+    "id": 9,
+    "category": "GST / Tax Matter",
+    "icon": "percent",
+    "description": "Documents for GST registration, notices and appeals",
+    "documents": [
+      "PAN Card of Business / Proprietor",
+      "Aadhaar Card of Proprietor / Partners / Directors",
+      "Proof of Business Registration (Partnership deed, MOA, etc.)",
+      "Bank Account Statement + Cancelled Cheque",
+      "Registered Office Address Proof",
+      "Digital Signature Certificate (DSC)",
+      "ITR of last 3 years (for assessment matters)",
+      "GST Returns (GSTR-1, GSTR-3B) — if already registered",
+      "The GST Notice (SCN — Show Cause Notice) with reference number",
+      "Books of accounts (for audit/scrutiny matters)",
+      "Purchase and Sales invoices questioned in notice"
+    ]
+  },
+  {
+    "id": 10,
+    "category": "Intellectual Property",
+    "icon": "award",
+    "description": "Documents for trademark, patent and copyright matters",
+    "documents": [
+      "Identity Proof (Aadhaar / Passport)",
+      "Logo / Brand name in JPG format (for trademark)",
+      "Description of goods / services covered",
+      "Business Registration Certificate",
+      "Date of first use of trademark / brand (proof)",
+      "Power of Attorney in favour of attorney",
+      "Prior IP registrations (if any renewals)",
+      "Technical drawings / description (for patent)",
+      "Prototype or model details (for patent)",
+      "Assignment deed (if IP being transferred)",
+      "Evidence of infringement (for IP dispute cases)"
+    ]
+  },
+  {
+    "id": 11,
+    "category": "RERA / Real Estate",
+    "icon": "home",
+    "description": "Documents for RERA complaints against builders",
+    "documents": [
+      "Allotment Letter from Builder",
+      "Sale Agreement / Buyer's Agreement",
+      "Payment receipts (all payments made)",
+      "Builder's Brochure / Advertisement",
+      "RERA Registration Number of Project",
+      "Correspondence with builder (email, letters)",
+      "Bank loan sanction letter (if home loan taken)",
+      "Original booking form",
+      "Bank statements showing all payments",
+      "Photos / videos of current construction status",
+      "Aadhaar Card of complainant"
+    ]
+  },
+  {
+    "id": 12,
+    "category": "Loan Recovery / DRT",
+    "icon": "credit-card",
+    "description": "Documents for loan recovery cases before DRT",
+    "documents": [
+      "Loan Agreement / Sanction Letter",
+      "Promissory Note / Guarantee Documents",
+      "Mortgage Deed / Security Documents",
+      "Bank Statements (all loan disbursements)",
+      "Repayment schedule and actual payments made",
+      "NPA (Non-Performing Asset) declaration letter",
+      "Legal Notice sent to borrower (copy)",
+      "Property valuation report",
+      "Guarantor documents",
+      "CIBIL Report",
+      "All correspondence with the borrower"
+    ]
+  }
+]
