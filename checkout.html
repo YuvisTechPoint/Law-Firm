@@ -521,8 +521,12 @@
       // Free consultation
       showStatus('✓ Booking confirmed! Redirecting...', 'success');
       setTimeout(() => {
+        // Move free items to purchases and redirect user to cart view
+        const purchased = JSON.parse(localStorage.getItem('userPurchases') || '[]');
+        const purchasedItems = cart.map(i => ({ ...i, purchasedAt: new Date().toISOString(), bookingId: 'FREE-' + Date.now().toString().slice(-6) }));
+        localStorage.setItem('userPurchases', JSON.stringify(purchased.concat(purchasedItems)));
         localStorage.removeItem('userCart');
-        window.location.href = 'login.html?booking=success';
+        window.location.href = 'login.html?open=cart&show=purchases&orderId=FREE-' + Date.now().toString().slice(-6);
       }, 2000);
       return;
     }
@@ -579,11 +583,18 @@
     let bookings = JSON.parse(localStorage.getItem('userBookings')) || [];
     bookings.push(booking);
     localStorage.setItem('userBookings', JSON.stringify(bookings));
-    localStorage.removeItem('userCart');
+      // Save purchased items separately so user can view them in their dashboard cart
+      const purchased = JSON.parse(localStorage.getItem('userPurchases') || '[]');
+      const purchasedItems = cart.map(i => ({ ...i, purchasedAt: new Date().toISOString(), bookingId: response.razorpay_payment_id }));
+      localStorage.setItem('userPurchases', JSON.stringify(purchased.concat(purchasedItems)));
 
-    setTimeout(() => {
-      window.location.href = `success.html?orderId=${response.razorpay_payment_id}`;
-    }, 2000);
+      // Clear cart (items moved to purchases)
+      localStorage.removeItem('userCart');
+
+      // Redirect user to dashboard cart so they can see the purchased items
+      setTimeout(() => {
+        window.location.href = `login.html?open=cart&show=purchases&orderId=${encodeURIComponent(response.razorpay_payment_id)}`;
+      }, 1200);
   }
 
   function showStatus(message, type) {

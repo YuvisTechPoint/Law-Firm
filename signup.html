@@ -133,9 +133,20 @@
       }
     } catch (error) {
       console.error('Signup Error:', error);
-      showStatus('Server error. Please try again later.', 'error');
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
+      // If server is down, store user locally so they can login offline
+      try {
+        const users = JSON.parse(localStorage.getItem('localUsers') || '[]');
+        const token = btoa(email);
+        users.push({ fullName, email, password, token });
+        localStorage.setItem('localUsers', JSON.stringify(users));
+        showStatus('✓ Account created locally (offline). You can login now.', 'success');
+        setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+      } catch (e) {
+        console.error('Local signup failed', e);
+        showStatus('Server error. Please try again later.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
     }
   });
 

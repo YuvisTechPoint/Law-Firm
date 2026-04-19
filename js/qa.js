@@ -1,6 +1,9 @@
 /* ============================================
-   QA.JS — Q&A Forum Logic
+   QA.JS — Real-Time Q&A Forum Logic with Email
    ============================================ */
+
+const QA_API_BASE = 'http://localhost:3000/api/qa';
+let pollInterval = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -8,25 +11,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   let activeCategory = 'All';
   let activeFilter = '';
 
-  // Load questions from localStorage or JSON
-  const stored = localStorage.getItem('lf_questions');
-  if (stored) {
-    questions = JSON.parse(stored);
-  } else {
-    try {
-      const res = await fetch('../data/questions.json');
-      questions = await res.json();
-      localStorage.setItem('lf_questions', JSON.stringify(questions));
-    } catch {
-      questions = getSeedQuestions();
-      localStorage.setItem('lf_questions', JSON.stringify(questions));
-    }
-  }
+  // Load questions from backend (real-time)
+  await fetchQuestions();
 
   renderSidebar();
   renderQuestions(questions);
   setupForm();
   setupSearch();
+
+  // Start polling for real-time updates every 5 seconds
+  pollInterval = setInterval(fetchQuestions, 5000);
+
+  // ─── Fetch Questions from Backend ────────────────
+  async function fetchQuestions() {
+    try {
+      const res = await fetch(`${QA_API_BASE}/questions`);
+      const data = await res.json();
+      if (data.success) {
+        questions = data.questions;
+        renderSidebar();
+        filterAndRender();
+      }
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+      // Fallback to localStorage
+      const stored = localStorage.getItem('lf_questions');
+      if (stored) {
+        questions = JSON.parse(stored);
+      }
+    }
+  }
 
   // ─── Render Sidebar ──────────────────────────────
   function renderSidebar() {
@@ -96,8 +110,162 @@ document.addEventListener('DOMContentLoaded', async () => {
         ${q.status === 'answered' && q.reply ? `
           <div class="answer-section" id="answer-${q.id}">
             <div class="answer-header">
-              <div class="avatar avatar-sm">${q.reply.advocate.charAt(5)}</div>
+              <div class="avatar avatar-sm">${q.reply.advocate.charAt(0)}</div>
               <div>
+                <div class="answer-advocate">${escapeHtml(q.reply.advocate)}</div>
+                <div class="answer-designation">${escapeHtml(q.reply.designation)}</div>
+                <div style="font-size:0.75rem;color:var(--muted)">${formatDate(q.reply.date)}</div>
+              </div>
+            </div>
+            <div class="answer-text">${escapeHtml(q.reply.text)}</div>
+          </div>
+        ` : ''}
+      </div>
+    `).join('');
+
+    // View answer toggle
+    container.querySelectorAll('.view-answer-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answerSec = document.getElementById('answer-' + btn.dataset.id);
+        if (answerSec) {
+          answerSec.classList.toggle('visible');
+          btn.textContent = answerSec.classList.contains('visible') ? 'Hide Answer ↑' : 'View Answer →';
+        }
+      });
+    });
+
+    // Helpful button
+    container.querySelectorAll('.helpful-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('active')) return;
+        btn.classList.add('active');
+        const count = btn.querySelector('.helpful-count');
+        const newVal = parseInt(count.textContent) + 1;
+        count.textContent = newVal;
+      });
+    });
+
+    // Re-observe for scroll reveal
+    document.querySelectorAll('.reveal').forEach(el => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      obs.observe(el);
+    });
+  }
+
+  // ─── Filter & Render ────────────────────────────
+  function filterAndRender() {
+    let filtered = questions;
+    if (activeCategory !== 'All') {
+      filtered = filtered.filter(q => q.category === activeCategory);
+    }
+    if (activeFilter) {
+      filtered = filtered.filter(q =>
+        q.title.toLowerCase().includes(activeFilter) ||
+        q.body.toLowerCase().includes(activeFilter)
+      );
+    }
+    renderQuestions(filtered);
+  }
+
+  // ─── Setup Search ────────────────────────────────
+  function setupSearch() {
+    const searchInput = document.getElementById('qa-search');
+    if (!searchInput) return;
+    searchInput.addEventListener('input', (e) => {
+      activeFilter = e.target.value.toLowerCase().trim();
+      filterAndRender();
+    });
+  }
+
+  // ─── Setup Submit Form ───────────────────────────
+  function setupForm() {
+    const form = document.getElementById('qa-submit-form');
+    if (!form) return;
+
+    // Character counters
+    const titleInput = form.querySelector('#q-title');
+    const bodyInput = form.querySelector('#q-body');
+    const titleCount = form.querySelector('#title-count');
+    const bodyCount = form.querySelector('#body-count');
+
+    if (titleInput && titleCount) {
+      titleInput.addEventListener('input', () => {
+        titleCount.textContent = `${titleInput.value.length}/100`;
+      });
+    }
+    if (bodyInput && bodyCount) {
+      bodyInput.addEventListener('input', () => {
+        bodyCount.textContent = `${bodyBody.value.length}/500`;
+      });
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '📤 Sending...';
+
+      try {
+        // Send to backend API
+        const res = await fetch(`${QA_API_BASE}/ask`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            category: formData.get('category'),
+            title: formData.get('title'),
+            body: formData.get('body'),
+            city: formData.get('city')
+          })
+        });
+
+        const data = await res.json();
+        
+        if (data.success) {
+          // Show success message
+          if (window.showToast) {
+            showToast('✓ Question submitted! Check your email for confirmation. Admin will reply via email.', 'success');
+          }
+          
+          // Reset form
+          form.reset();
+          if (titleCount) titleCount.textContent = '0/100';
+          if (bodyCount) bodyCount.textContent = '0/500';
+          
+          // Refresh questions list
+          await fetchQuestions();
+        } else {
+          if (window.showToast) {
+            showToast('Error: ' + data.message, 'error');
+          }
+        }
+      } catch (error) {
+        console.error('Error submitting question:', error);
+        if (window.showToast) {
+          showToast('Failed to submit question. Please try again.', 'error');
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Question';
+      }
+    });
+  }
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+});
                 <div class="answer-advocate">${escapeHtml(q.reply.advocate)}</div>
                 <div class="answer-designation">${escapeHtml(q.reply.designation)}</div>
                 <div style="font-size:0.75rem;color:var(--muted)">${formatDate(q.reply.date)}</div>

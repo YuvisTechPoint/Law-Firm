@@ -59,14 +59,32 @@
     .sidebar { display: flex; flex-direction: column; gap: 1rem; }
     .sidebar-section { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; }
     
-    .profile-card { text-align: center; }
+    .profile-card { text-align: center; position: relative; }
     .profile-avatar { width: 100px; height: 100px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: var(--bg-primary); margin: 0 auto 1rem; }
     .profile-name { font-size: 1.3rem; font-weight: 700; color: var(--ivory); margin-bottom: 0.5rem; }
     .profile-email { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
     .profile-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-    .stat-item { background: var(--bg-card); padding: 1rem; border-radius: var(--radius-md); text-align: center; }
+    .stat-item { background: var(--bg-card); padding: 1rem; border-radius: var(--radius-md); text-align: center; border: 1px solid transparent; transition: all var(--transition-base); }
     .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
     .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem; }
+    .stat-item.stat-updated { border-color: rgba(212, 175, 55, 0.6); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.18); animation: statPulse 900ms ease; }
+    .stats-update-badge { position: absolute; top: 0.75rem; right: 0.75rem; padding: 0.25rem 0.55rem; border-radius: var(--radius-full); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.04em; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--bg-primary); opacity: 0; transform: translateY(-6px) scale(0.95); pointer-events: none; }
+    .stats-update-badge.show { animation: statBadgePop 1.8s ease; }
+    .stats-toast { position: fixed; top: 1rem; right: 1rem; z-index: 10000; background: rgba(8, 12, 32, 0.92); border: 1px solid rgba(212, 175, 55, 0.45); color: var(--ivory); padding: 0.75rem 1rem; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); font-size: 0.86rem; opacity: 0; transform: translateY(-10px); transition: all 220ms ease; }
+    .stats-toast.show { opacity: 1; transform: translateY(0); }
+
+    @keyframes statPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes statBadgePop {
+      0% { opacity: 0; transform: translateY(-6px) scale(0.95); }
+      15% { opacity: 1; transform: translateY(0) scale(1); }
+      70% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-6px) scale(0.95); }
+    }
     
     .nav-tabs { display: flex; flex-direction: column; gap: 0.5rem; }
     .nav-tab { padding: 1rem; background: transparent; border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--muted); cursor: pointer; text-align: left; font-weight: 600; transition: all var(--transition-base); }
@@ -85,16 +103,20 @@
     .service-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(212,175,55,0.1), transparent); opacity: 0; transition: opacity var(--transition-base); }
     .service-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow-gold-lg); }
     .service-card:hover::before { opacity: 1; }
+    .service-card.purchased { border-color: rgba(46, 204, 113, 0.45); box-shadow: 0 0 0 1px rgba(46, 204, 113, 0.2); }
+    .service-card.purchased::before { background: radial-gradient(circle at top right, rgba(46,204,113,0.14), transparent); opacity: 1; }
     
     .service-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; position: relative; z-index: 1; }
     .service-name { font-size: 1.1rem; font-weight: 700; color: var(--ivory); }
     .service-badge { background: var(--gold); color: var(--bg-primary); font-size: 0.75rem; padding: 0.4rem 0.8rem; border-radius: var(--radius-full); font-weight: 600; }
+    .service-badge-success { background: rgba(46, 204, 113, 0.2); color: #7ef5a7; border: 1px solid rgba(46, 204, 113, 0.45); }
     .service-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.5; }
     .service-details { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.85rem; }
     .service-detail-item { display: flex; gap: 0.5rem; color: var(--muted); }
     .service-price { font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 1rem; }
     .btn-add-to-cart { width: 100%; padding: 0.85rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--bg-primary); border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: all var(--transition-base); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
     .btn-add-to-cart:hover { transform: scale(1.05); box-shadow: var(--shadow-gold-lg); }
+    .btn-add-to-cart[disabled] { cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.75; }
 
     /* Cart Section */
     .cart-card { background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: var(--glass-border); border-radius: var(--radius-lg); padding: 2rem; }
@@ -231,15 +253,16 @@
           <div class="profile-name" id="profile-name">User Name</div>
           <div class="profile-email" id="profile-email-display">email@example.com</div>
           <div class="profile-stats">
-            <div class="stat-item">
+            <div class="stat-item" id="stat-bookings-item">
               <div class="stat-value" id="stat-bookings">0</div>
               <div class="stat-label">Bookings</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" id="stat-spent-item">
               <div class="stat-value" id="stat-spent">₹0</div>
-              <div class="stat-label">Spent</div>
+              <div class="stat-label">Spent (Incl. GST)</div>
             </div>
           </div>
+          <div class="stats-update-badge" id="stats-update-badge">UPDATED</div>
         </div>
 
         <!-- Navigation Tabs -->
@@ -443,11 +466,35 @@
       }
     } catch (error) {
       console.error('Login Error:', error);
-      showStatus('Server error. Ensure auth server is running on localhost:3000', 'error');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Sign In';
+      // Attempt offline login using locally stored users
+      const offlineOk = offlineLogin(email, password);
+      if (offlineOk) {
+        showStatus('✓ Offline login successful', 'success');
+        setTimeout(() => showDashboard({ email: email, fullName: localStorage.getItem('userFullName') || email }), 400);
+      } else {
+        showStatus('Server error. Ensure auth server is running on localhost:3000', 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign In';
+      }
     }
   });
+
+  // Offline login helper (checks localStorage `localUsers`)
+  function offlineLogin(email, password) {
+    try {
+      const users = JSON.parse(localStorage.getItem('localUsers') || '[]');
+      const u = users.find(u => u.email === email && u.password === password);
+      if (u) {
+        localStorage.setItem('userEmail', u.email);
+        localStorage.setItem('userFullName', u.fullName);
+        // create a token similar to server token
+        const token = btoa(u.email);
+        localStorage.setItem('userToken', token);
+        return true;
+      }
+    } catch (e) { console.error('Offline login parse error', e); }
+    return false;
+  }
 
   function validateSession(email, token) {
     fetch('http://localhost:3000/api/auth/validate', {
@@ -460,10 +507,26 @@
       if (data.success) {
         showDashboard(data.user);
       } else {
-        localStorage.clear();
+        // If server rejects, try offline validation from localUsers before clearing
+        const users = JSON.parse(localStorage.getItem('localUsers') || '[]');
+        const u = users.find(u => u.email === email && btoa(u.email) === token);
+        if (u) {
+          showDashboard({ email: u.email, fullName: u.fullName });
+        } else {
+          localStorage.clear();
+        }
       }
     })
-    .catch(() => localStorage.clear());
+    .catch(() => {
+      // On fetch error (server down), allow offline session if possible
+      const users = JSON.parse(localStorage.getItem('localUsers') || '[]');
+      const u = users.find(u => u.email === email && btoa(u.email) === token);
+      if (u) {
+        showDashboard({ email: u.email, fullName: u.fullName });
+      } else {
+        localStorage.clear();
+      }
+    });
   }
 
   function showDashboard(user) {
@@ -483,15 +546,129 @@
     renderBookings();
     renderFavorites();
     loadSettings();
+
+    // Update profile statistics silently on initial dashboard render
+    updateProfileStats({ notify: false });
+
+    // If URL requests opening the cart (for example after purchase), honor it
+    (function handleOpenParams() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const open = params.get('open');
+        const show = params.get('show');
+        if (open === 'cart') {
+          switchTab('cart');
+          // If redirect asked to show purchases, render purchased items
+          if (show === 'purchases') {
+            renderPurchasedItems();
+            updateProfileStats({ notify: true, forceHighlight: true });
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+    })();
+  }
+
+  // Update profile stats from stored bookings/purchases
+  function updateProfileStats(options = {}) {
+    const notify = !!options.notify;
+    const forceHighlight = !!options.forceHighlight;
+
+    // Refresh userBookings from storage (in case it changed)
+    userBookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+    const purchases = JSON.parse(localStorage.getItem('userPurchases') || '[]');
+
+    const bookingsCount = userBookings.length;
+
+    // Amounts in bookings are already GST-inclusive in checkout flow.
+    const totalFromBookings = userBookings.reduce((s, b) => s + (parseFloat(b.amount) || 0), 0);
+    let totalSpent = 0;
+    if (totalFromBookings > 0) {
+      totalSpent = totalFromBookings;
+    } else {
+      totalSpent = purchases.reduce((s, p) => s + (parseFloat(p.price) || 0), 0);
+    }
+    totalSpent = Math.round(totalSpent);
+
+    const statBookings = document.getElementById('stat-bookings');
+    const statSpent = document.getElementById('stat-spent');
+    if (statBookings) statBookings.textContent = bookingsCount;
+    if (statSpent) statSpent.textContent = '₹' + totalSpent;
+
+    const snapKey = 'userStatsSnapshot';
+    const prevRaw = localStorage.getItem(snapKey);
+    const prev = prevRaw ? JSON.parse(prevRaw) : null;
+    const bookingsDelta = prev ? bookingsCount - (prev.bookingsCount || 0) : 0;
+    const spentDelta = prev ? totalSpent - (prev.totalSpent || 0) : 0;
+    const changed = !!prev && (bookingsDelta !== 0 || spentDelta !== 0);
+
+    if ((notify && changed) || forceHighlight) {
+      animateStatUpdate();
+      const bookingTxt = bookingsDelta > 0 ? `+${bookingsDelta} booking` : `${bookingsDelta} booking`;
+      const spentTxt = spentDelta > 0 ? `+₹${spentDelta}` : `₹${spentDelta}`;
+      showStatsToast(`Stats updated: ${bookingTxt}, ${spentTxt} (GST-inclusive)`);
+    }
+
+    localStorage.setItem(snapKey, JSON.stringify({
+      bookingsCount,
+      totalSpent
+    }));
+  }
+
+  function animateStatUpdate() {
+    const bookingItem = document.getElementById('stat-bookings-item');
+    const spentItem = document.getElementById('stat-spent-item');
+    const badge = document.getElementById('stats-update-badge');
+
+    [bookingItem, spentItem].forEach(el => {
+      if (!el) return;
+      el.classList.remove('stat-updated');
+      // Reflow to restart animation
+      void el.offsetWidth;
+      el.classList.add('stat-updated');
+    });
+
+    if (badge) {
+      badge.classList.remove('show');
+      void badge.offsetWidth;
+      badge.classList.add('show');
+      setTimeout(() => badge.classList.remove('show'), 1850);
+    }
+  }
+
+  function showStatsToast(message) {
+    let toast = document.getElementById('stats-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'stats-toast';
+      toast.className = 'stats-toast';
+      document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+
+  function getPurchasedServiceIds() {
+    const purchases = JSON.parse(localStorage.getItem('userPurchases') || '[]');
+    return new Set(purchases.map(p => p.id).filter(id => typeof id !== 'undefined' && id !== null));
   }
 
   function renderServices() {
     const servicesGrid = document.getElementById('services-grid');
+    const purchasedIds = getPurchasedServiceIds();
+    const inCartIds = new Set(userCart.map(item => item.id));
     servicesGrid.innerHTML = SERVICES.map(service => `
-      <div class="service-card">
+      <div class="service-card ${purchasedIds.has(service.id) ? 'purchased' : ''}">
         <div class="service-header">
           <div class="service-name">${service.name}</div>
-          ${service.category === 'Popular' ? '<div class="service-badge">⭐ POPULAR</div>' : ''}
+          ${purchasedIds.has(service.id)
+            ? '<div class="service-badge service-badge-success">✓ PURCHASED</div>'
+            : (service.category === 'Popular' ? '<div class="service-badge">⭐ POPULAR</div>' : '')}
         </div>
         <div class="service-desc">${service.description}</div>
         <div class="service-details">
@@ -503,7 +680,9 @@
           </div>
         </div>
         <div class="service-price">₹${service.price}</div>
-        <button class="btn-add-to-cart" onclick="addToCart(${service.id})">+ Add to Cart</button>
+        <button class="btn-add-to-cart" onclick="addToCart(${service.id})" ${purchasedIds.has(service.id) || inCartIds.has(service.id) ? 'disabled' : ''}>
+          ${purchasedIds.has(service.id) ? 'Purchased' : (inCartIds.has(service.id) ? 'In Cart' : '+ Add to Cart')}
+        </button>
       </div>
     `).join('');
   }
@@ -511,9 +690,23 @@
   function addToCart(serviceId) {
     const service = SERVICES.find(s => s.id === serviceId);
     if (service) {
+      const purchasedIds = getPurchasedServiceIds();
+      if (purchasedIds.has(service.id)) {
+        showStatus('This consultation is already purchased. Check Bookings.', 'success');
+        switchTab('bookings');
+        return;
+      }
+
+      if (userCart.some(item => item.id === service.id)) {
+        showStatus('This consultation is already in cart.', 'error');
+        switchTab('cart');
+        return;
+      }
+
       userCart.push(service);
       localStorage.setItem('userCart', JSON.stringify(userCart));
       renderCart();
+      renderServices();
       switchTab('cart');
       
       // Visual feedback
@@ -568,10 +761,48 @@
     `;
   }
 
+  // Render items that were purchased (moved from cart after checkout)
+  function renderPurchasedItems() {
+    const purchased = JSON.parse(localStorage.getItem('userPurchases') || '[]');
+    const cartList = document.getElementById('cart-list');
+    const cartSummary = document.getElementById('cart-summary');
+
+    if (!purchased || purchased.length === 0) {
+      cartList.innerHTML = '<div class="empty-state"><div class="empty-icon">🎉</div><h3>No recent purchases</h3><p>Your purchases will appear here after a successful checkout.</p></div>';
+      cartSummary.innerHTML = '';
+      return;
+    }
+
+    cartList.innerHTML = purchased.map((item, idx) => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <h4>${item.name}</h4>
+          <p>${item.description}</p>
+          <p style="font-size:0.8rem;margin-top:0.5rem">Purchased: ${new Date(item.purchasedAt).toLocaleString()}</p>
+          <p style="font-size:0.8rem;margin-top:0.2rem">Booking ID: ${item.bookingId || '-'}</p>
+        </div>
+        <div class="cart-item-price">₹${item.price}</div>
+      </div>
+    `).join('');
+
+    // Simple summary
+    const total = purchased.reduce((s, it) => s + (it.price || 0), 0);
+    cartSummary.innerHTML = `
+      <div class="cart-summary">
+        <div class="summary-row"><span>Purchased Items:</span><span>${purchased.length}</span></div>
+        <div class="summary-row"><span>Subtotal:</span><span>₹${total}</span></div>
+        <div class="summary-row"><span>GST (18%):</span><span>₹${Math.round(total * 0.18)}</span></div>
+        <div class="summary-total"><span>Total Spent:</span><span>₹${Math.round(total * 1.18)}</span></div>
+      </div>
+    `;
+    updateProfileStats();
+  }
+
   function removeFromCart(index) {
     userCart.splice(index, 1);
     localStorage.setItem('userCart', JSON.stringify(userCart));
     renderCart();
+    renderServices();
   }
 
   function renderBookings() {
@@ -582,26 +813,36 @@
       return;
     }
 
-    bookingsList.innerHTML = userBookings.map(booking => `
+    bookingsList.innerHTML = userBookings.map(booking => {
+      const title = booking.service || (Array.isArray(booking.items) && booking.items.length
+        ? booking.items.map(item => item.name).join(', ')
+        : 'Consultation');
+      const normalizedStatus = String(booking.status || 'confirmed').toLowerCase();
+      const statusClass = ['completed', 'confirmed', 'paid'].includes(normalizedStatus) ? 'status-completed' : 'status-pending';
+      const advocateName = booking.advocate || 'Assigned after confirmation';
+      const amount = parseFloat(booking.amount) || 0;
+      const dateText = booking.date || '-';
+
+      return `
       <div class="booking-item">
         <div class="booking-header">
-          <div class="booking-title">${booking.service}</div>
-          <div class="booking-status ${booking.status === 'completed' ? 'status-completed' : 'status-pending'}">
-            ${booking.status.toUpperCase()}
+          <div class="booking-title">${title}</div>
+          <div class="booking-status ${statusClass}">
+            ${normalizedStatus.toUpperCase()}
           </div>
         </div>
         <div class="booking-details">
           <div class="detail-item">
             <h5>Date</h5>
-            <p>${booking.date}</p>
+            <p>${dateText}</p>
           </div>
           <div class="detail-item">
             <h5>Advocate</h5>
-            <p>${booking.advocate}</p>
+            <p>${advocateName}</p>
           </div>
           <div class="detail-item">
             <h5>Amount</h5>
-            <p>₹${booking.amount}</p>
+            <p>₹${amount}</p>
           </div>
           <div class="detail-item">
             <h5>Booking ID</h5>
@@ -609,7 +850,9 @@
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
+    updateProfileStats();
   }
 
   function renderFavorites() {
