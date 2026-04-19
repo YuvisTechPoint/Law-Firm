@@ -653,18 +653,115 @@
   function loadSettings() {
     const userFullName = localStorage.getItem('userFullName') || '';
     const userEmail = localStorage.getItem('userEmail') || '';
+    const userPhone = localStorage.getItem('userPhone') || '';
     
     document.getElementById('settings-name').value = userFullName;
     document.getElementById('settings-email').value = userEmail;
+    document.getElementById('settings-phone').value = userPhone;
+
+    // Setup real-time auto-save listeners
+    setupSettingsAutoSave();
+  }
+
+  function setupSettingsAutoSave() {
+    const phoneInput = document.getElementById('settings-phone');
+    const nameInput = document.getElementById('settings-name');
+    
+    if (phoneInput) {
+      phoneInput.addEventListener('blur', () => {
+        const phone = phoneInput.value.trim();
+        if (phone) {
+          // Validate phone format
+          if (/^\+?[\d\s\-()]{10,}$/.test(phone)) {
+            localStorage.setItem('userPhone', phone);
+            // Visual feedback - green border
+            phoneInput.style.borderColor = 'var(--success)';
+            phoneInput.style.boxShadow = '0 0 0 2px rgba(46, 204, 113, 0.2)';
+            setTimeout(() => {
+              phoneInput.style.borderColor = '';
+              phoneInput.style.boxShadow = '';
+            }, 1500);
+            showStatus('✓ Phone number saved in real-time!', 'success');
+          }
+        }
+      });
+
+      phoneInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          phoneInput.blur();
+        }
+      });
+    }
+    
+    if (nameInput) {
+      nameInput.addEventListener('blur', () => {
+        const name = nameInput.value.trim();
+        if (name) {
+          localStorage.setItem('userFullName', name);
+          // Visual feedback - green border
+          nameInput.style.borderColor = 'var(--success)';
+          nameInput.style.boxShadow = '0 0 0 2px rgba(46, 204, 113, 0.2)';
+          setTimeout(() => {
+            nameInput.style.borderColor = '';
+            nameInput.style.boxShadow = '';
+          }, 1500);
+          // Update profile card
+          const profileName = document.getElementById('profile-name');
+          if (profileName) {
+            profileName.textContent = name;
+          }
+          showStatus('✓ Name updated in real-time!', 'success');
+        }
+      });
+
+      nameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          nameInput.blur();
+        }
+      });
+    }
   }
 
   function saveSettings() {
-    const name = document.getElementById('settings-name').value;
-    if (name.trim()) {
-      localStorage.setItem('userFullName', name);
-      showStatus('✓ Settings saved successfully', 'success');
-    } else {
+    const name = document.getElementById('settings-name').value.trim();
+    const phone = document.getElementById('settings-phone').value.trim();
+    
+    if (!name) {
       showStatus('Please enter your name', 'error');
+      return;
+    }
+    
+    if (phone && !/^\+?[\d\s\-()]{10,}$/.test(phone)) {
+      showStatus('Please enter a valid phone number', 'error');
+      return;
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('userFullName', name);
+    if (phone) {
+      localStorage.setItem('userPhone', phone);
+    }
+    
+    // Show success with animation
+    const btn = event.target;
+    const originalText = btn.textContent;
+    btn.textContent = '✓ Saved!';
+    btn.style.background = 'var(--success)';
+    btn.style.color = 'white';
+    
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2000);
+    
+    showStatus('✓ Profile updated in real-time!', 'success');
+    
+    // Update profile card if displayed
+    const userFullName = localStorage.getItem('userFullName');
+    const profileName = document.getElementById('profile-name');
+    if (profileName) {
+      profileName.textContent = userFullName || 'User';
     }
   }
 
